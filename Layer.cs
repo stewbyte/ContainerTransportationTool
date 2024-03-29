@@ -1,4 +1,6 @@
-﻿namespace ContainerTransportationTool
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ContainerTransportationTool
 {
     internal class Layer
     {
@@ -15,9 +17,9 @@
             {
                 throw new InvalidOperationException("Position is already occupied!");
             }
-            else if (container == null)
+            else if (x >= containers.GetLength(0) || y >= containers.GetLength(1))
             {
-                throw new InvalidOperationException("Container is null!");
+                throw new ArgumentOutOfRangeException("x or y", "Index is out of bounds!");
             }
 
             containers[x, y] = container;
