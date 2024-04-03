@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ContainerTransportationTool
+﻿namespace ContainerTransportationTool
 {
     internal class Layer
     {
