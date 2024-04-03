@@ -1,6 +1,6 @@
 ﻿namespace ContainerTransportationTool
 {
-    internal class Layer
+    public class Layer
     {
         private Container[,] containers;
 
@@ -31,6 +31,11 @@
             }
 
             containers[x, y] = null;
+        }
+
+        public Container[,] ReturnContainers()
+        {
+            return containers;
         }
     }
 }
