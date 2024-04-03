@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerTransportationTool", "ContainerTransportationTool.csproj", "{8FFF25FF-4C11-47F3-8613-3A012003200B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContainerTransportationTool", "ContainerTransportationTool.csproj", "{8FFF25FF-4C11-47F3-8613-3A012003200B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerTransportationTool.Tests", "..\ContainerTransportationTool.Tests\ContainerTransportationTool.Tests.csproj", "{9CE149C8-F2BD-4A6D-89B6-38A1BE9C62ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8FFF25FF-4C11-47F3-8613-3A012003200B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FFF25FF-4C11-47F3-8613-3A012003200B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FFF25FF-4C11-47F3-8613-3A012003200B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CE149C8-F2BD-4A6D-89B6-38A1BE9C62ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CE149C8-F2BD-4A6D-89B6-38A1BE9C62ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CE149C8-F2BD-4A6D-89B6-38A1BE9C62ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CE149C8-F2BD-4A6D-89B6-38A1BE9C62ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
