@@ -30,5 +30,16 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.Throws<InvalidOperationException>(() => layer.AddContainer(container2, 0, 0));
         }
+
+        [Fact]
+        public void AddContainerToInvalidPosition()
+        {
+            // Arrange
+            Layer layer = new Layer(1, 1);
+            Container container = new Container(Enums.ContainerType.Normal, 4000);
+
+            // Act & Assert
+            Assert.Throws<IndexOutOfRangeException>(() => layer.AddContainer(container, 1, 1));
+        }
     }
 }

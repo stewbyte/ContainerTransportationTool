@@ -15,7 +15,7 @@
             {
                 throw new InvalidOperationException("Position is already occupied!");
             }
-            if (x >= containers.GetLength(0) || y >= containers.GetLength(1))
+            if (x >= containers.GetLength(0) || y > containers.GetLength(1))
             {
                 throw new ArgumentOutOfRangeException("x or y", "Index is out of bounds!");
             }
@@ -25,7 +25,7 @@
 
         public void RemoveContainer(int x, int y)
         {
-            if (x >= containers.GetLength(0) || y >= containers.GetLength(1))
+            if (x >= containers.GetLength(0) || y > containers.GetLength(1))
             {
                 throw new ArgumentOutOfRangeException("x or y", "Index is out of bounds!");
             }
