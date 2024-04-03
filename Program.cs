@@ -16,12 +16,12 @@ while (!exit)
     {
         case "1":
             Console.Clear();
-            Console.Write("Enter the length of the ship: ");
+            Console.Write("Enter the LENGTH of the ship's container stack:");
             int length = int.Parse(Console.ReadLine());
             validator.Validate(length, 1, 10);
 
             Console.Clear();
-            Console.Write("Enter the width of the ship: ");
+            Console.Write("Enter the WIDTH of the ship's container stack:");
             int width = int.Parse(Console.ReadLine());
             validator.Validate(width, 1, 10);
             break;
