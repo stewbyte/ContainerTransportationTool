@@ -4,7 +4,7 @@ namespace ContainerTransportationTool
 {
     public class Container
     {
-        public int weight { get; private set; }
         public ContainerType ContainerType { get; private set; }
+        public int weight { get; private set; }
     }
 }
