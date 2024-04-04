@@ -13,7 +13,7 @@ namespace ContainerTransportationTool.Tests
             layer.AddContainer(container, 0, 0);
 
             // Assert
-            Assert.Equal(container, layer.ReturnContainers()[0, 0]);
+            Assert.Equal(container, layer.Containers[0, 0]);
         }
 
         [Fact]

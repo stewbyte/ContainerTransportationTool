@@ -4,6 +4,11 @@
     {
         private Container[,] containers;
 
+        public Container[,] Containers
+        {
+            get { return containers; }
+        }
+
         public Layer(int length, int width)
         {
             containers = new Container[length, width];
@@ -31,11 +36,6 @@
             }
 
             containers[x, y] = null;
-        }
-
-        public Container[,] ReturnContainers()
-        {
-            return containers;
         }
     }
 }
