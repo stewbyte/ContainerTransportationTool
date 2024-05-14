@@ -2,7 +2,7 @@
 {
     public class Layer
     {
-        private Container[,] containers;
+        private Container[,] containers; //todo: store containers vertically
 
         public Container[,] Containers
         {
