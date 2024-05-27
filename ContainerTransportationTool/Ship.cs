@@ -4,16 +4,16 @@
     {
         public int stackLength { get; private set; }
         public int stackWidth { get; private set; }
-        public List<Layer> layers;
+        public List<Stack> layers;
 
         public Ship(int stackLength, int stackWidth)
         {
             this.stackLength = stackLength;
             this.stackWidth = stackWidth;
-            layers = new List<Layer>();
+            layers = new List<Stack>();
         }
 
-        public void AddLayer(Layer layer)
+        public void AddLayer(Stack layer)
         {
             layers.Add(layer);
         }
@@ -23,7 +23,7 @@
             layers.RemoveAt(index);
         }
 
-        public Layer GetLayer(int index)
+        public Stack GetLayer(int index)
         {
             return layers[index];
         }

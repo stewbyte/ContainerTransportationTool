@@ -6,7 +6,7 @@ namespace ContainerTransportationTool.Tests
         public void AddContainerToLayer()
         {
             // Arrange
-            Layer layer = new Layer(1, 1);
+            Stack layer = new Stack(1, 1);
             Container container = new Container(Enums.ContainerType.Normal, 4000);
 
             // Act
@@ -20,7 +20,7 @@ namespace ContainerTransportationTool.Tests
         public void AddContainerToOccupiedPosition()
         {
             // Arrange
-            Layer layer = new Layer(1, 1);
+            Stack layer = new Stack(1, 1);
             Container container1 = new Container(Enums.ContainerType.Normal, 4000);
             Container container2 = new Container(Enums.ContainerType.Normal, 4000);
 
@@ -35,7 +35,7 @@ namespace ContainerTransportationTool.Tests
         public void AddContainerToInvalidPosition()
         {
             // Arrange
-            Layer layer = new Layer(1, 1);
+            Stack layer = new Stack(1, 1);
             Container container = new Container(Enums.ContainerType.Normal, 4000);
 
             // Act & Assert
