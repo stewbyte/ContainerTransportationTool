@@ -2,35 +2,43 @@
 {
     internal class Ship
     {
-        public int stackLength { get; private set; }
-        public int stackWidth { get; private set; }
-        public List<Stack> layers;
+        public int StackLength { get; private set; }
+        public int StackWidth { get; private set; }
+        public List<Stack> Stacks { get; private set; }
 
         public Ship(int stackLength, int stackWidth)
         {
-            this.stackLength = stackLength;
-            this.stackWidth = stackWidth;
-            layers = new List<Stack>();
+            StackLength = stackLength;
+            StackWidth = stackWidth;
+            Stacks = new List<Stack>();
         }
 
-        public void AddLayer(Stack layer)
+        public void AddStack()
         {
-            layers.Add(layer);
+            Stacks.Add(new Stack(StackLength, StackWidth));
         }
 
-        public void RemoveLayer(int index)
+        public void RemoveStack(int index)
         {
-            layers.RemoveAt(index);
+            if (index < 0 || index >= Stacks.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
+            }
+            Stacks.RemoveAt(index);
         }
 
-        public Stack GetLayer(int index)
+        public Stack GetStack(int index)
         {
-            return layers[index];
+            if (index < 0 || index >= Stacks.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
+            }
+            return Stacks[index];
         }
 
-        public void ClearLayers()
+        public void ClearStacks()
         {
-            layers.Clear();
+            Stacks.Clear();
         }
     }
 }
