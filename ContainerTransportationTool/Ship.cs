@@ -15,7 +15,7 @@
 
         public void AddStack()
         {
-            Stacks.Add(new Stack(StackLength, StackWidth));
+            Stacks.Add(new Stack());
         }
 
         public void RemoveStack(int index)
