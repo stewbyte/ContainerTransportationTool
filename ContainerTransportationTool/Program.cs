@@ -1,38 +1,72 @@
-﻿using ContainerTransportationTool;
+﻿using System;
+using System.Collections.Generic;
+using static ContainerTransportationTool.Enums;
 
-bool exit = false;
-
-while (!exit)
+namespace ContainerTransportationTool
 {
-    Console.WriteLine("// ContainerTransportationTool");
-    Console.WriteLine("1. Create new ship");
-    Console.WriteLine("0. Exit");
-    Console.Write("Enter your choice: ");
-
-    string choice = Console.ReadLine();
-
-    switch (choice)
+    class Program
     {
-        case "1":
-            Console.Clear();
-            Console.Write("Enter the LENGTH of the ship's container stack:");
-            int length = int.Parse(Console.ReadLine());
+        static void Main(string[] args)
+        {
+            int stackLength = 5;
+            int stackWidth = 4;
+            Ship ship = new Ship(stackLength, stackWidth);
 
-            Console.Clear();
-            Console.Write("Enter the WIDTH of the ship's container stack:");
-            int width = int.Parse(Console.ReadLine());
-            break;
+            List<Container> containers = new List<Container>
+            {
+                new Container(ContainerType.Normal, 10000),
+            };
 
-        case "0":
-            exit = true;
-            Console.WriteLine("Exiting...");
-            break;
+            try
+            {
+                ship.PlaceContainers(containers);
 
-        default:
-            Console.WriteLine("Invalid choice. Please try again.");
-            break;
+                string visualizationLink = GenerateVisualizationLink(ship);
+                Console.WriteLine("Visualization Link: " + visualizationLink);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+
+        static string GenerateVisualizationLink(Ship ship)
+        {
+            List<string> stacks = new List<string>();
+            List<string> weights = new List<string>();
+
+            for (int i = 0; i < ship.StackLength; i++)
+            {
+                List<string> rowStacks = new List<string>();
+                List<string> rowWeights = new List<string>();
+
+                for (int j = 0; j < ship.StackWidth; j++)
+                {
+                    Stack stack = ship.GetStack(i, j);
+                    List<string> stackTypes = new List<string>();
+                    List<string> stackWeights = new List<string>();
+
+                    foreach (var container in stack.GetContainers())
+                    {
+                        stackTypes.Add(((int)container.ContainerType).ToString());
+                        stackWeights.Add(container.Weight.ToString());
+                    }
+
+                    rowStacks.Add(string.Join("-", stackTypes));
+                    rowWeights.Add(string.Join("-", stackWeights));
+                }
+
+                stacks.Add(string.Join("/", rowStacks));
+                weights.Add(string.Join("/", rowWeights));
+            }
+
+            string baseUrl = "https://i872272.luna.fhict.nl/ContainerVisualizer/index.html";
+            string length = "length=" + ship.StackLength;
+            string width = "width=" + ship.StackWidth;
+            string stacksParam = "stacks=" + string.Join("/", stacks);
+            string weightsParam = "weights=" + string.Join("/", weights);
+
+            return $"{baseUrl}?{length}&{width}&{stacksParam}&{weightsParam}";
+        }
     }
-    Console.WriteLine("\nPress any key to continue...");
-    Console.ReadKey();
-    Console.Clear();
 }
