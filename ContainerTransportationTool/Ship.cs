@@ -14,6 +14,7 @@ namespace ContainerTransportationTool
             StackLength = stackLength;
             StackWidth = stackWidth;
             MaximumWeight = maximumWeight;
+
             InitializeStacks();
         }
 
@@ -49,6 +50,7 @@ namespace ContainerTransportationTool
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
+            
             for (int i = 0; i < StackLength; i++)
             {
                 var row = new List<Stack>();
