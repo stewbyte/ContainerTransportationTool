@@ -24,6 +24,14 @@ namespace ContainerTransportationTool
             }
         }
 
+        public List<Container> SortContainers(List<Container> containers)
+        {
+            return containers.OrderByDescending(c => c.ContainerType == ContainerType.Valuable)
+                             .ThenByDescending(c => c.ContainerType == ContainerType.Coolable)
+                             .ThenByDescending(c => c.Weight)
+                             .ToList();
+        }
+
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
