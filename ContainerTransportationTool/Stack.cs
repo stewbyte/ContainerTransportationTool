@@ -62,5 +62,9 @@ namespace ContainerTransportationTool
         {
             return containers.Sum(container => container.Weight);
         }
+        public List<Container> GetContainers()
+        {
+            return containers;
+        }
     }
 }
