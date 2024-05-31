@@ -47,5 +47,22 @@ namespace ContainerTransportationTool
 
             return true;
         }
+
+        public bool IsShipBalanced()
+        {
+            double leftWeight = 0;
+            double rightWeight = 0;
+            int half = StackWidth / 2;
+
+            for (int i = 0; i < StackLength; i++)
+            {
+                leftWeight += Stacks[i].GetRange(0, half).Sum(stack => stack.GetTotalWeight());
+                rightWeight += Stacks[i].GetRange(half, StackWidth - half).Sum(stack => stack.GetTotalWeight());
+            }
+
+            double totalWeight = leftWeight + rightWeight;
+            return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
+        }
+
     }
 }
