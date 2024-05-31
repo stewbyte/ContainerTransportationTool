@@ -42,12 +42,8 @@
 
         public int GetWeightAboveFirstContainer()
         {
-            if (containers.Count <= 1)
-            {
-                return 0;
-            }
-
             int totalWeight = 0;
+
             for (int i = 1; i < containers.Count; i++)
             {
                 totalWeight += containers[i].Weight;
