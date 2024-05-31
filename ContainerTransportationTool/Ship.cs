@@ -16,6 +16,14 @@ namespace ContainerTransportationTool
             InitializeStacks();
         }
 
+        public void PlaceContainers(List<Container> containers)
+        {
+            foreach (Container container in containers)
+            {
+
+            }
+        }
+
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
@@ -36,6 +44,12 @@ namespace ContainerTransportationTool
             {
                 throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!");
             }
+        }
+
+        public Stack GetStack(int lengthIndex, int widthIndex)
+        {
+            ValidateStackIndex(lengthIndex, widthIndex);
+            return Stacks[lengthIndex][widthIndex];
         }
 
         public bool AddContainer(Container container, int lengthIndex, int widthIndex)
