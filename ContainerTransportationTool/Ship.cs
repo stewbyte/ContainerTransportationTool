@@ -130,8 +130,6 @@ namespace ContainerTransportationTool
             return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
         }
 
-
-
         public bool IsWeightUtilized()
         {
             double totalWeight = Stacks.Sum(row => row.Sum(stack => stack.GetTotalWeight()));
