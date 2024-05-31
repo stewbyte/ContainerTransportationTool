@@ -6,6 +6,7 @@ namespace ContainerTransportationTool
     {
         public int StackLength { get; private set; }
         public int StackWidth { get; private set; }
+        public int MaximumWeight { get; private set; }
         public List<List<Stack>> Stacks { get; private set; }
 
         public Ship(int stackLength, int stackWidth)
@@ -62,6 +63,12 @@ namespace ContainerTransportationTool
 
             double totalWeight = leftWeight + rightWeight;
             return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
+        }
+
+        public bool IsWeightUtilized()
+        {
+            double totalWeight = Stacks.Sum(row => row.Sum(stack => stack.GetTotalWeight()));
+            return totalWeight >= MaximumWeight * 0.5;
         }
     }
 }
