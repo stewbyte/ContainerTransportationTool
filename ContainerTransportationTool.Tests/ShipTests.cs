@@ -30,9 +30,9 @@ namespace ContainerTransportationTool.Tests
             Assert.Equal(ContainerType.Valuable, sortedContainers[2].ContainerType);
             Assert.Equal(ContainerType.Normal, sortedContainers[3].ContainerType);
             Assert.Equal(ContainerType.Normal, sortedContainers[4].ContainerType);
-            Assert.Equal(25000, sortedContainers[1].Weight);
-            Assert.Equal(20000, sortedContainers[2].Weight);
-            Assert.Equal(30000, sortedContainers[3].Weight);
+            Assert.Equal(25, sortedContainers[1].Weight);
+            Assert.Equal(20, sortedContainers[2].Weight);
+            Assert.Equal(30, sortedContainers[3].Weight);
         }
 
         [Fact]
