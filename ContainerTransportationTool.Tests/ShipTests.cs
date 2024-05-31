@@ -91,7 +91,6 @@ namespace ContainerTransportationTool.Tests
             Assert.True(isWeightUtilized);
         }
 
-
         [Fact]
         public void IsWeightUtilized_ShouldReturnFalseWhenWeightUtilizationIsNotMet()
         {
