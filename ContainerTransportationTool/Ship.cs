@@ -18,6 +18,7 @@ namespace ContainerTransportationTool
             InitializeStacks();
         }
 
+        // todo: Rework this method, then test it
         public void PlaceContainers(List<Container> containers)
         {
             var sortedContainers = SortContainers(containers);
