@@ -6,6 +6,7 @@ namespace ContainerTransportationTool
     public class Stack
     {
         private List<Container> containers;
+        public int maxStackWeight { get; private set; } = 120000;
 
         public Stack()
         {
