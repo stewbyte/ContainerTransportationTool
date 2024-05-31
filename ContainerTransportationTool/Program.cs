@@ -10,7 +10,7 @@ namespace ContainerTransportationTool
         {
             int stackLength = 5;
             int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth);
+            Ship ship = new Ship(stackLength, stackWidth, 100000);
 
             List<Container> containers = new List<Container>
             {

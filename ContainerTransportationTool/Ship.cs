@@ -2,17 +2,18 @@
 
 namespace ContainerTransportationTool
 {
-    internal class Ship
+    public class Ship
     {
         public int StackLength { get; private set; }
         public int StackWidth { get; private set; }
         public int MaximumWeight { get; private set; }
         public List<List<Stack>> Stacks { get; private set; }
 
-        public Ship(int stackLength, int stackWidth)
+        public Ship(int stackLength, int stackWidth, int maximumWeight)
         {
             StackLength = stackLength;
             StackWidth = stackWidth;
+            MaximumWeight = maximumWeight;
             InitializeStacks();
         }
 
