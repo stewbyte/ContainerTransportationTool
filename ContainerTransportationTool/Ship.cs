@@ -6,29 +6,26 @@ namespace ContainerTransportationTool
     {
         public int StackLength { get; private set; }
         public int StackWidth { get; private set; }
-        public List<Stack> Length { get; private set; }
-        public List<Stack> Width { get; private set; }
+        public List<List<Stack>> Stacks { get; private set; }
 
         public Ship(int stackLength, int stackWidth)
         {
-            Length = new List<Stack>();
-            Width = new List<Stack>();
-
-            Length = new List<Stack>(stackLength);
-            Width = new List<Stack>(stackWidth);
-
+            StackLength = stackLength;
+            StackWidth = stackWidth;
             InitializeStacks();
         }
 
         private void InitializeStacks()
         {
+            Stacks = new List<List<Stack>>();
             for (int i = 0; i < StackLength; i++)
             {
-                Length.Add(new Stack());
-            }
-            for (int i = 0; i < StackWidth; i++)
-            {
-                Width.Add(new Stack());
+                var row = new List<Stack>();
+                for (int j = 0; j < StackWidth; j++)
+                {
+                    row.Add(new Stack());
+                }
+                Stacks.Add(row);
             }
         }
 
