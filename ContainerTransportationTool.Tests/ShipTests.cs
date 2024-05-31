@@ -108,5 +108,18 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.False(isWeightUtilized);
         }
+
+        [Fact]
+        public void GetStack_ShouldReturnsStack()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+
+            // Act
+            var stack = ship.GetStack(1, 1);
+
+            // Assert
+            Assert.NotNull(stack);
+        }
     }
 }
