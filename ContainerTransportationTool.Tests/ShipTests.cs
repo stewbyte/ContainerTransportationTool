@@ -154,5 +154,19 @@ namespace ContainerTransportationTool.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => ship.ValidateStackIndex(1, -1));
             Assert.Throws<ArgumentOutOfRangeException>(() => ship.ValidateStackIndex(1, 2));
         }
+
+        [Fact]
+        public void CanPlaceContainer_ShouldReturnTrueForCoolableContainerInFirstRow()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+            Container coolableContainer = new Container(ContainerType.Coolable, 10);
+
+            // Act
+            bool canPlace = ship.CanPlaceContainer(coolableContainer, 0, 0);
+
+            // Assert
+            Assert.True(canPlace);
+        }
     }
 }
