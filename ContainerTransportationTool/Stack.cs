@@ -4,6 +4,7 @@
     {
         private List<Container> containers;
         public int MaxStackWeight { get; private set; } = 120;
+        public int MaxContainerWeight { get; private set; } = 30;
 
         public Stack()
         {
@@ -15,6 +16,11 @@
             if (GetWeightAboveFirstContainer() + container.Weight > MaxStackWeight)
             {
                 throw new InvalidOperationException("Adding this container exceeds the maximum allowed weight above the first container!");
+            }
+
+            if (container.Weight > MaxContainerWeight)
+            {
+                throw new InvalidOperationException("Container exceeds max container weight!");
             }
 
             containers.Insert(0, container);
