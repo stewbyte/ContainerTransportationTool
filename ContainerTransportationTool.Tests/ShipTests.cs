@@ -182,5 +182,20 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.False(canPlace);
         }
+
+        [Fact]
+        public void CanPlaceContainer_ShouldReturnFalseForValuableContainerOnOccupiedStack()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+            Container valuableContainer = new Container(ContainerType.Valuable, 10);
+            ship.AddContainer(new Container(ContainerType.Normal, 10), 0, 0);
+
+            // Act
+            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0);
+
+            // Assert
+            Assert.False(canPlace);
+        }
     }
 }
