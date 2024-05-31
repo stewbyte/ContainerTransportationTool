@@ -39,19 +39,36 @@ namespace ContainerTransportationTool.Tests
         public void IsShipBalanced_ShouldReturnTrueWhenShipIsBalanced()
         {
             // Arrange
-            Ship ship = new Ship(2, 2, 500000);
+            Ship ship = new Ship(2, 2, 1000);
 
-            // Manually place containers to ensure balance
-            ship.AddContainer(new Container(ContainerType.Normal, 30000), 0, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 20000), 0, 1);
-            ship.AddContainer(new Container(ContainerType.Normal, 15000), 1, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 15000), 1, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 100), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 100), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 150), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 150), 1, 1);
 
             // Act
             bool isBalanced = ship.IsShipBalanced();
 
             // Assert
             Assert.True(isBalanced);
+        }
+
+        [Fact]
+        public void IsShipBalanced_ShouldReturnFalseWhenShipIsUnbalanced()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 1000);
+
+            ship.AddContainer(new Container(ContainerType.Normal, 100), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 99),  1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 150), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 151), 1, 1);
+
+            // Act
+            bool isBalanced = ship.IsShipBalanced();
+
+            // Assert
+            Assert.False(isBalanced);
         }
     }
 }
