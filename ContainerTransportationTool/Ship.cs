@@ -91,7 +91,7 @@ namespace ContainerTransportationTool
                              .ToList();
         }
 
-        private void ValidateStackIndex(int lengthIndex, int widthIndex)
+        public void ValidateStackIndex(int lengthIndex, int widthIndex)
         {
             if (lengthIndex < 0 || lengthIndex >= StackLength || widthIndex < 0 || widthIndex >= StackWidth)
             {
