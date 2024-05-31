@@ -38,14 +38,14 @@ namespace ContainerTransportationTool.Tests
         [Fact]
         public void IsShipBalanced_ShouldReturnTrueWhenShipIsBalanced()
         {
-            // Max Allowed Difference 500 * 0.2 = 100 - Difference: 100
+            // Max Allowed Difference 400 * 0.2 = 80 - Difference: 80
             // Arrange
-            Ship ship = new Ship(2, 2, 1000);
+            Ship ship = new Ship(2, 2, 500);
 
-            ship.AddContainer(new Container(ContainerType.Normal, 100), 0, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 100), 1, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 150), 0, 1);
-            ship.AddContainer(new Container(ContainerType.Normal, 150), 1, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 80), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 80), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 120), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 120), 1, 1);
 
             // Act
             bool isBalanced = ship.IsShipBalanced();
@@ -57,14 +57,14 @@ namespace ContainerTransportationTool.Tests
         [Fact]
         public void IsShipBalanced_ShouldReturnFalseWhenShipIsUnbalanced()
         {
-            // Max Allowed Difference 500 * 0.2 = 100 - Difference: 102
+            // Max Allowed Difference 400 * 0.2 = 76 - Difference: 100
             // Arrange
-            Ship ship = new Ship(2, 2, 1000);
+            Ship ship = new Ship(2, 2, 500);
 
-            ship.AddContainer(new Container(ContainerType.Normal, 100), 0, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 99),  1, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 150), 0, 1);
-            ship.AddContainer(new Container(ContainerType.Normal, 151), 1, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 70), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 70), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 120), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 120), 1, 1);
 
             // Act
             bool isBalanced = ship.IsShipBalanced();
