@@ -18,21 +18,23 @@
             Stacks.Add(new Stack());
         }
 
-        public void RemoveStack(int index)
+        private void ValidateStackIndex(int index)
         {
             if (index < 0 || index >= Stacks.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
             }
+        }
+
+        public void RemoveStack(int index)
+        {
+            ValidateStackIndex(index);
             Stacks.RemoveAt(index);
         }
 
         public Stack GetStack(int index)
         {
-            if (index < 0 || index >= Stacks.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
-            }
+            ValidateStackIndex(index);
             return Stacks[index];
         }
 
