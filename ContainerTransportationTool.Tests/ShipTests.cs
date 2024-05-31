@@ -38,14 +38,14 @@ namespace ContainerTransportationTool.Tests
         [Fact]
         public void IsShipBalanced_ShouldReturnTrueWhenShipIsBalanced()
         {
-            // Max Allowed Difference 400 * 0.2 = 80 - Difference: 80
+            // Max Allowed Difference 100 * 0.2 = 20 - Difference: 20
             // Arrange
             Ship ship = new Ship(2, 2, 500);
 
-            ship.AddContainer(new Container(ContainerType.Normal, 80), 0, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 80), 1, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 120), 0, 1);
-            ship.AddContainer(new Container(ContainerType.Normal, 120), 1, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 20), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 20), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 1, 1);
 
             // Act
             bool isBalanced = ship.IsShipBalanced();
@@ -57,20 +57,38 @@ namespace ContainerTransportationTool.Tests
         [Fact]
         public void IsShipBalanced_ShouldReturnFalseWhenShipIsUnbalanced()
         {
-            // Max Allowed Difference 380 * 0.2 = 76 - Difference: 100
+            // Max Allowed Difference 100 * 0.2 = 20 - Difference: 22
             // Arrange
             Ship ship = new Ship(2, 2, 500);
 
-            ship.AddContainer(new Container(ContainerType.Normal, 70), 0, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 70), 1, 0);
-            ship.AddContainer(new Container(ContainerType.Normal, 120), 0, 1);
-            ship.AddContainer(new Container(ContainerType.Normal, 120), 1, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 19), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 20), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 31), 1, 1);
 
             // Act
             bool isBalanced = ship.IsShipBalanced();
 
             // Assert
             Assert.False(isBalanced);
+        }
+
+        [Fact]
+        public void IsWeightUtilized_ShouldReturnTrueWhenWeightUtilizationIsMet()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 300);
+
+            ship.AddContainer(new Container(ContainerType.Normal, 40), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 40), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 40), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 40), 1, 1);
+
+            // Act
+            bool isWeightUtilized = ship.IsWeightUtilized();
+
+            // Assert
+            Assert.True(isWeightUtilized);
         }
     }
 }
