@@ -90,5 +90,24 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.True(isWeightUtilized);
         }
+
+
+        [Fact]
+        public void IsWeightUtilized_ShouldReturnFalseWhenWeightUtilizationIsNotMet()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 300);
+
+            ship.AddContainer(new Container(ContainerType.Normal, 35), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 35), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 35), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 35), 1, 1);
+
+            // Act
+            bool isWeightUtilized = ship.IsWeightUtilized();
+
+            // Assert
+            Assert.False(isWeightUtilized);
+        }
     }
 }
