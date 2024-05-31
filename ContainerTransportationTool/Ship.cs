@@ -16,6 +16,20 @@ namespace ContainerTransportationTool
 
             Length = new List<Stack>(stackLength);
             Width = new List<Stack>(stackWidth);
+
+            InitializeStacks();
+        }
+
+        private void InitializeStacks()
+        {
+            for (int i = 0; i < StackLength; i++)
+            {
+                Length.Add(new Stack());
+            }
+            for (int i = 0; i < StackWidth; i++)
+            {
+                Width.Add(new Stack());
+            }
         }
 
         private void ValidateStackIndex(List<Stack> dimension, int index)
