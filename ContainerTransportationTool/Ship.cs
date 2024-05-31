@@ -62,7 +62,7 @@ namespace ContainerTransportationTool
             }
         }
 
-        private bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex)
+        public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex)
         {
             if (container.ContainerType == ContainerType.Coolable)
             {
