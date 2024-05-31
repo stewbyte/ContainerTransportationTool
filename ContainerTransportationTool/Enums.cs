@@ -6,8 +6,7 @@
         {
             Normal,
             Valuable,
-            Coolable,
-            ValuableAndCoolable
+            Coolable
         }
     }
 }
