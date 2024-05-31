@@ -23,15 +23,6 @@ namespace ContainerTransportationTool
 
             }
         }
-
-        public List<Container> SortContainers(List<Container> containers)
-        {
-            return containers.OrderByDescending(c => c.ContainerType == ContainerType.Valuable)
-                             .ThenByDescending(c => c.ContainerType == ContainerType.Coolable)
-                             .ThenByDescending(c => c.Weight)
-                             .ToList();
-        }
-
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
@@ -44,6 +35,14 @@ namespace ContainerTransportationTool
                 }
                 Stacks.Add(row);
             }
+        }
+
+        public List<Container> SortContainers(List<Container> containers)
+        {
+            return containers.OrderByDescending(c => c.ContainerType == ContainerType.Coolable)
+                             .ThenByDescending(c => c.ContainerType == ContainerType.Valuable)
+                             .ThenByDescending(c => c.Weight)
+                             .ToList();
         }
 
         private void ValidateStackIndex(int lengthIndex, int widthIndex)
