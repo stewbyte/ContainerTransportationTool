@@ -5,7 +5,7 @@
         public enum ContainerType
         {
             Normal,
-            Valueble,
+            Valuable,
             Coolable,
             ValuableAndCoolable
         }
