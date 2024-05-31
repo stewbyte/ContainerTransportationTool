@@ -156,6 +156,20 @@ namespace ContainerTransportationTool.Tests
         }
 
         [Fact]
+        public void CanPlaceContainer_ShouldReturnTrueForNormalContainer()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+            Container normalContainer = new Container(ContainerType.Normal, 10);
+
+            // Act
+            bool canPlace = ship.CanPlaceContainer(normalContainer, 1, 1);
+
+            // Assert
+            Assert.True(canPlace);
+        }
+
+        [Fact]
         public void CanPlaceContainer_ShouldReturnTrueForCoolableContainerInFirstRow()
         {
             // Arrange
@@ -196,6 +210,20 @@ namespace ContainerTransportationTool.Tests
 
             // Assert
             Assert.False(canPlace);
+        }
+
+        [Fact]
+        public void CanPlaceContainer_ShouldReturnTrueForValuableContainerOnEmptyStack()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+            Container valuableContainer = new Container(ContainerType.Valuable, 10);
+
+            // Act
+            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0);
+
+            // Assert
+            Assert.True(canPlace);
         }
     }
 }
