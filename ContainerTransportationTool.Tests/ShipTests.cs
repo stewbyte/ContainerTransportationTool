@@ -143,5 +143,16 @@ namespace ContainerTransportationTool.Tests
             Exception ex = Record.Exception(() => ship.ValidateStackIndex(1, 1));
             Assert.Null(ex);
         }
+
+        [Fact]
+        public void ValidateStackIndex_ShouldThrowExceptionForInvalidIndex()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => ship.ValidateStackIndex(1, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => ship.ValidateStackIndex(1, 2));
+        }
     }
 }
