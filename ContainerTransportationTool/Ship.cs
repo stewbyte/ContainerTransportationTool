@@ -29,12 +29,23 @@ namespace ContainerTransportationTool
             }
         }
 
-        private void ValidateStackIndex(List<Stack> dimension, int index)
+        private void ValidateStackIndex(int lengthIndex, int widthIndex)
         {
-            if (index < 0 || index >= dimension.Count)
+            if (lengthIndex < 0 || lengthIndex >= StackLength || widthIndex < 0 || widthIndex >= StackWidth)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
+                throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!");
             }
+        }
+
+        public bool AddContainer(Container container, int lengthIndex, int widthIndex)
+        {
+            ValidateStackIndex(lengthIndex, widthIndex);
+
+            Stack stack = Stacks[lengthIndex][widthIndex];
+
+            stack.AddContainer(container);
+
+            return true;
         }
     }
 }
