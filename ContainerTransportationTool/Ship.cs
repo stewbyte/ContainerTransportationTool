@@ -18,11 +18,33 @@ namespace ContainerTransportationTool
 
         public void PlaceContainers(List<Container> containers)
         {
-            foreach (Container container in containers)
-            {
+            var sortedContainers = SortContainers(containers);
 
+            foreach (Container container in sortedContainers)
+            {
+                bool placed = false;
+
+                for (int i = 0; i < StackLength; i++)
+                {
+                    for (int j = 0; j < StackWidth; j++)
+                    {
+                        if (CanPlaceContainer(container, i, j))
+                        {
+                            AddContainer(container, i, j);
+                            placed = true;
+                            break;
+                        }
+                    }
+                    if (placed) break;
+                }
+
+                if (!placed)
+                {
+                    throw new InvalidOperationException("Unable to place container due to constraints.");
+                }
             }
         }
+
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
