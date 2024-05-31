@@ -34,5 +34,24 @@ namespace ContainerTransportationTool.Tests
             Assert.Equal(20000, sortedContainers[2].Weight);
             Assert.Equal(30000, sortedContainers[3].Weight);
         }
+
+        [Fact]
+        public void IsShipBalanced_ShouldReturnTrueWhenShipIsBalanced()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500000);
+
+            // Manually place containers to ensure balance
+            ship.AddContainer(new Container(ContainerType.Normal, 30000), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 20000), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 15000), 1, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 15000), 1, 1);
+
+            // Act
+            bool isBalanced = ship.IsShipBalanced();
+
+            // Assert
+            Assert.True(isBalanced);
+        }
     }
 }
