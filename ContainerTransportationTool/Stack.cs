@@ -3,7 +3,7 @@
     public class Stack
     {
         private List<Container> containers;
-        public int MaxStackWeight { get; private set; } = 120000; // kg
+        public int MaxStackWeight { get; private set; } = 120;
 
         public Stack()
         {

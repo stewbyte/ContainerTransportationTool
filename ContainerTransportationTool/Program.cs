@@ -10,11 +10,11 @@ namespace ContainerTransportationTool
         {
             int stackLength = 5;
             int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 100000);
+            Ship ship = new Ship(stackLength, stackWidth, 100);
 
             List<Container> containers = new List<Container>
             {
-                new Container(ContainerType.Normal, 10000),
+                new Container(ContainerType.Normal, 10),
             };
 
             try

@@ -11,14 +11,14 @@ namespace ContainerTransportationTool.Tests
         public void SortContainers_ShouldPrioritizeCoolableThenValuableThenNormal_AndSortByWeight()
         {
             // Arrange
-            Ship ship = new Ship(2, 2, 500000);
+            Ship ship = new Ship(2, 2, 500);
             List<Container> containers = new List<Container>
             {
-                new Container(ContainerType.Normal, 15000),
-                new Container(ContainerType.Valuable, 20000),
-                new Container(ContainerType.Coolable, 10000),
-                new Container(ContainerType.Normal, 30000),
-                new Container(ContainerType.Valuable, 25000)
+                new Container(ContainerType.Normal, 15),
+                new Container(ContainerType.Valuable, 20),
+                new Container(ContainerType.Coolable, 10),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Valuable, 25)
             };
 
             // Act
