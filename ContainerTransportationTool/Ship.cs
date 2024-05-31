@@ -1,46 +1,29 @@
-﻿namespace ContainerTransportationTool
+﻿using static ContainerTransportationTool.Enums;
+
+namespace ContainerTransportationTool
 {
     internal class Ship
     {
         public int StackLength { get; private set; }
         public int StackWidth { get; private set; }
-        public List<Stack> Stacks { get; private set; }
+        public List<Stack> Length { get; private set; }
+        public List<Stack> Width { get; private set; }
 
         public Ship(int stackLength, int stackWidth)
         {
-            StackLength = stackLength;
-            StackWidth = stackWidth;
-            Stacks = new List<Stack>();
+            Length = new List<Stack>();
+            Width = new List<Stack>();
+
+            Length = new List<Stack>(stackLength);
+            Width = new List<Stack>(stackWidth);
         }
 
-        public void AddStack()
+        private void ValidateStackIndex(List<Stack> dimension, int index)
         {
-            Stacks.Add(new Stack());
-        }
-
-        private void ValidateStackIndex(int index)
-        {
-            if (index < 0 || index >= Stacks.Count)
+            if (index < 0 || index >= dimension.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range!");
             }
-        }
-
-        public void RemoveStack(int index)
-        {
-            ValidateStackIndex(index);
-            Stacks.RemoveAt(index);
-        }
-
-        public Stack GetStack(int index)
-        {
-            ValidateStackIndex(index);
-            return Stacks[index];
-        }
-
-        public void ClearStacks()
-        {
-            Stacks.Clear();
         }
     }
 }
