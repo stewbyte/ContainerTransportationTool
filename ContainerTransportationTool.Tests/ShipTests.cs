@@ -121,5 +121,16 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.NotNull(stack);
         }
+
+        [Fact]
+        public void GetStack_ShouldThrowExceptionForInvalidIndex()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => ship.GetStack(1, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => ship.GetStack(1, 2));
+        }
     }
 }
