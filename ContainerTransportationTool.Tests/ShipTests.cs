@@ -168,5 +168,19 @@ namespace ContainerTransportationTool.Tests
             // Assert
             Assert.True(canPlace);
         }
+
+        [Fact]
+        public void CanPlaceContainer_ShouldReturnFalseForCoolableContainerNotInFirstRow()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 500);
+            Container coolableContainer = new Container(ContainerType.Coolable, 10);
+
+            // Act
+            bool canPlace = ship.CanPlaceContainer(coolableContainer, 1, 0);
+
+            // Assert
+            Assert.False(canPlace);
+        }
     }
 }
