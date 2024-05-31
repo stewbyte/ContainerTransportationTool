@@ -122,13 +122,15 @@ namespace ContainerTransportationTool
 
             for (int i = 0; i < StackLength; i++)
             {
-                leftWeight += Stacks[i].GetRange(0, half).Sum(stack => stack.GetTotalWeight());
-                rightWeight += Stacks[i].GetRange(half, StackWidth - half).Sum(stack => stack.GetTotalWeight());
+                leftWeight += Stacks[i].Take(half).Sum(stack => stack.GetTotalWeight());
+                rightWeight += Stacks[i].Skip(half).Sum(stack => stack.GetTotalWeight());
             }
 
             double totalWeight = leftWeight + rightWeight;
             return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
         }
+
+
 
         public bool IsWeightUtilized()
         {
