@@ -37,6 +37,27 @@ namespace ContainerTransportationTool
             }
         }
 
+        private bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex)
+        {
+            if (container.ContainerType == ContainerType.Coolable)
+            {
+                if (lengthIndex != 0)
+                {
+                    return false;
+                }
+            }
+
+            if (container.ContainerType == ContainerType.Valuable)
+            {
+                if (Stacks[lengthIndex][widthIndex].GetContainers().Count > 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public List<Container> SortContainers(List<Container> containers)
         {
             return containers.OrderByDescending(c => c.ContainerType == ContainerType.Coolable)
