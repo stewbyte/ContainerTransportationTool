@@ -63,6 +63,5 @@ namespace ContainerTransportationTool
             double totalWeight = leftWeight + rightWeight;
             return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
         }
-
     }
 }

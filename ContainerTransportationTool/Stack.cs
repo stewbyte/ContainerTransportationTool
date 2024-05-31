@@ -57,5 +57,10 @@ namespace ContainerTransportationTool
             }
             return totalWeight;
         }
+
+        public int GetTotalWeight()
+        {
+            return containers.Sum(container => container.Weight);
+        }
     }
 }
