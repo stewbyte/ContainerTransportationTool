@@ -6,7 +6,7 @@ namespace ContainerTransportationTool
     public class Stack
     {
         private List<Container> containers;
-        public int MaxStackWeight { get; private set; } = 120000; // Maximum weight of the stack in kg
+        public int MaxStackWeight { get; private set; } = 120000; // kg
 
         public Stack()
         {
@@ -20,7 +20,7 @@ namespace ContainerTransportationTool
                 throw new InvalidOperationException("Adding this container exceeds the maximum allowed weight above the first container!");
             }
 
-            containers.Add(container);
+            containers.Insert(0, container);
         }
 
         public Container GetTopContainer()
