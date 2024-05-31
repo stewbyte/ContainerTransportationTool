@@ -9,13 +9,25 @@ namespace ContainerTransportationTool.Tests
         {
             // Arrange
             Stack stack = new Stack();
-            Container container = new Container(ContainerType.Normal, 100);
+            Container container = new Container(ContainerType.Normal, 30);
 
             // Act
             stack.AddContainer(container);
 
             // Assert
             Assert.Contains(container, stack.GetContainers());
+        }
+
+
+        [Fact]
+        public void AddContainer_ShouldThrowExceptionWhenExceedingWeightLimit()
+        {
+            // Arrange
+            Stack stack = new Stack();
+            Container heavyContainer = new Container(ContainerType.Normal, 40);
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => stack.AddContainer(heavyContainer));
         }
     }
 }
