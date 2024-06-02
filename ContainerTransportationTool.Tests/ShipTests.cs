@@ -57,7 +57,7 @@ namespace ContainerTransportationTool.Tests
         [Fact]
         public void IsShipBalanced_ShouldReturnFalseWhenShipIsUnbalanced()
         {
-            // Max Allowed Difference 40 * 0.2 = 8 - Difference: 8
+            // Max Allowed Difference 40 * 0.2 = 8 - Difference: 10
             // Arrange
             Ship ship = new Ship(2, 2, 500);
 
