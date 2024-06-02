@@ -122,6 +122,7 @@ namespace ContainerTransportationTool
             double leftWeight = 0;
             double rightWeight = 0;
             int half = StackWidth / 2;
+            float maxAllowedDifference = 0.2f;
 
             for (int i = 0; i < StackLength; i++)
             {
@@ -130,7 +131,7 @@ namespace ContainerTransportationTool
             }
 
             double totalWeight = leftWeight + rightWeight;
-            return Math.Abs(leftWeight - rightWeight) <= totalWeight * 0.2;
+            return Math.Abs(leftWeight - rightWeight) <= totalWeight * maxAllowedDifference;
         }
 
         public bool IsWeightUtilized()
