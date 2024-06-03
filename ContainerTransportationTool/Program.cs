@@ -10,10 +10,11 @@ namespace ContainerTransportationTool
         {
             int stackLength = 5;
             int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 100);
+            Ship ship = new Ship(stackLength, stackWidth, 30);
 
             List<Container> containers = new List<Container>
             {
+                new Container(ContainerType.Normal, 10),
                 new Container(ContainerType.Normal, 10),
             };
 
