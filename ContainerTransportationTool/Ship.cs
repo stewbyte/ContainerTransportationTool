@@ -120,6 +120,19 @@ namespace ContainerTransportationTool
             return false;
         }
 
+        private double CalculateWeight(int startColumn, int endColumn)
+        {
+            double weight = 0;
+            for (int i = 0; i < StackLength; i++)
+            {
+                for (int j = startColumn; j < endColumn; j++)
+                {
+                    weight += Stacks[i][j].GetTotalWeight();
+                }
+            }
+            return weight;
+        }
+
         public List<Container> SortContainers(List<Container> containers)
         {
             return containers.OrderByDescending(c => c.ContainerType == ContainerType.Coolable)
