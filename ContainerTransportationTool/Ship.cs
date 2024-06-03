@@ -18,28 +18,13 @@ namespace ContainerTransportationTool
             InitializeStacks();
         }
 
-        // todo: Rework this method, then test it
         public void PlaceContainers(List<Container> containers)
         {
             var sortedContainers = SortContainers(containers);
 
             foreach (Container container in sortedContainers)
             {
-                bool placed = false;
-
-                for (int i = 0; i < StackLength; i++)
-                {
-                    for (int j = 0; j < StackWidth; j++)
-                    {
-                        if (CanPlaceContainer(container, i, j))
-                        {
-                            AddContainer(container, i, j);
-                            placed = true;
-                            break;
-                        }
-                    }
-                    if (placed) break;
-                }
+                bool placed = PlaceContainerOnLighterSide(container);
 
                 if (!placed)
                 {
@@ -47,7 +32,7 @@ namespace ContainerTransportationTool
                 }
             }
 
-            if (!IsShipBalanced() || IsWeightUtilized())
+            if (!IsShipBalanced() || !IsWeightUtilized())
             {
                 throw new InvalidOperationException("Ship is not balanced and/or less than 50% of the weight is utilized.");
             }
