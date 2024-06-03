@@ -89,6 +89,37 @@ namespace ContainerTransportationTool
             return true;
         }
 
+        private bool PlaceContainerOnLighterSide(Container container)
+        {
+            double leftWeight = CalculateWeight(0, StackWidth / 2);
+            double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
+
+            if (leftWeight <= rightWeight)
+            {
+                return TryPlaceContainer(container, 0, StackWidth / 2);
+            }
+            else
+            {
+                return TryPlaceContainer(container, StackWidth / 2, StackWidth);
+            }
+        }
+
+        private bool TryPlaceContainer(Container container, int startColumn, int endColumn)
+        {
+            for (int i = 0; i < StackLength; i++)
+            {
+                for (int j = startColumn; j < endColumn; j++)
+                {
+                    if (CanPlaceContainer(container, i, j))
+                    {
+                        AddContainer(container, i, j);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public List<Container> SortContainers(List<Container> containers)
         {
             return containers.OrderByDescending(c => c.ContainerType == ContainerType.Coolable)
