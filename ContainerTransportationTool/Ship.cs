@@ -153,16 +153,9 @@ namespace ContainerTransportationTool
 
         public bool IsShipBalanced()
         {
-            double leftWeight = 0;
-            double rightWeight = 0;
-            int half = StackWidth / 2;
+            double leftWeight = CalculateWeight(0, StackWidth / 2);
+            double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
             float maxAllowedDifference = 0.2f;
-
-            for (int i = 0; i < StackLength; i++)
-            {
-                leftWeight += Stacks[i].Take(half).Sum(stack => stack.GetTotalWeight());
-                rightWeight += Stacks[i].Skip(half).Sum(stack => stack.GetTotalWeight());
-            }
 
             double totalWeight = leftWeight + rightWeight;
             return Math.Abs(leftWeight - rightWeight) <= totalWeight * maxAllowedDifference;
