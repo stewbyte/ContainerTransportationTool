@@ -46,6 +46,11 @@ namespace ContainerTransportationTool
                     throw new InvalidOperationException("Unable to place container due to constraints.");
                 }
             }
+
+            if (!IsShipBalanced() || IsWeightUtilized())
+            {
+                throw new InvalidOperationException("Ship is not balanced and/or less than 50% of the weight is utilized.");
+            }
         }
 
         private void InitializeStacks()
