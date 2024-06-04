@@ -150,16 +150,13 @@ namespace ContainerTransportationTool.Tests
         }
 
         [Fact]
-        public void TryPlaceContainer_ShouldNotPlaceContainerIfRangeIsInvalid()
+        public void TryPlaceContainer_ShouldThrowExceptionIfRangeIsInvalid()
         {
             // Arrange
             Ship ship = new Ship(2, 2, 100);
 
-            // Act
-            bool placed = ship.TryPlaceContainer(new Container(ContainerType.Normal, 20), 2, 3);
-
-            // Assert
-            Assert.False(placed);
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => ship.TryPlaceContainer(new Container(ContainerType.Normal, 20), 2, 3));
         }
 
         [Fact]
