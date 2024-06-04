@@ -74,7 +74,7 @@ namespace ContainerTransportationTool
             return true;
         }
 
-        private bool PlaceContainerOnLighterSide(Container container)
+        public bool PlaceContainerOnLighterSide(Container container)
         {
             double leftWeight = CalculateWeight(0, StackWidth / 2);
             double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
