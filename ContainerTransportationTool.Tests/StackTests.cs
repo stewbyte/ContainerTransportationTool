@@ -101,5 +101,35 @@ namespace ContainerTransportationTool.Tests
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => stack.DeleteTopContainer());
         }
+
+        [Fact]
+        public void GetWeightAboveFirstContainer_ShouldReturnCorrectWeight()
+        {
+            // Arrange
+            Stack stack = new Stack();
+            stack.AddContainer(new Container(ContainerType.Normal, 10));
+            stack.AddContainer(new Container(ContainerType.Normal, 20));
+            stack.AddContainer(new Container(ContainerType.Normal, 30));
+
+            // Act
+            int weightAboveFirst = stack.GetWeightAboveFirstContainer();
+
+            // Assert
+            Assert.Equal(50, weightAboveFirst); // 20 + 30
+        }
+
+        [Fact]
+        public void GetWeightAboveFirstContainer_ShouldReturnZeroWhenOnlyOneContainer()
+        {
+            // Arrange
+            Stack stack = new Stack();
+            stack.AddContainer(new Container(ContainerType.Normal, 10));
+
+            // Act
+            int weightAboveFirst = stack.GetWeightAboveFirstContainer();
+
+            // Assert
+            Assert.Equal(0, weightAboveFirst);
+        }
     }
 }
