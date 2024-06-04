@@ -106,6 +106,36 @@ namespace ContainerTransportationTool.Tests
         }
 
         [Fact]
+        public void CalculateWeight_ShouldReturnCorrectWeightForLeftSide()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 0);
+            ship.AddContainer(new Container(ContainerType.Normal, 20), 1, 0);
+
+            // Act
+            double weight = ship.CalculateWeight(0, 1);
+
+            // Assert
+            Assert.Equal(50, weight);
+        }
+
+        [Fact]
+        public void CalculateWeight_ShouldReturnCorrectWeightForRightSide()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 1);
+            ship.AddContainer(new Container(ContainerType.Normal, 20), 1, 1);
+
+            // Act
+            double weight = ship.CalculateWeight(1, 2);
+
+            // Assert
+            Assert.Equal(50, weight);
+        }
+
+        [Fact]
         public void IsWeightUtilized_ShouldReturnTrueWhenWeightUtilizationIsMet()
         {
             // Arrange
