@@ -74,6 +74,38 @@ namespace ContainerTransportationTool.Tests
         }
 
         [Fact]
+        public void PlaceContainerOnLighterSide_ShouldPlaceContainerOnRightIfLighter()
+        {
+            // Left side
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 0);
+
+            // Act
+            bool placed = ship.PlaceContainerOnLighterSide(new Container(ContainerType.Normal, 20));
+
+            // Assert
+            Assert.True(placed);
+            Assert.Equal(20, ship.GetStack(0, 1).GetTotalWeight());
+        }
+
+        [Fact]
+        public void PlaceContainerOnLighterSide_ShouldPlaceContainerOnLeftIfLighter()
+        {
+            // Right side
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+            ship.AddContainer(new Container(ContainerType.Normal, 30), 0, 1);
+
+            // Act
+            bool placed = ship.PlaceContainerOnLighterSide(new Container(ContainerType.Normal, 20));
+
+            // Assert
+            Assert.True(placed);
+            Assert.Equal(20, ship.GetStack(0, 0).GetTotalWeight());
+        }
+
+        [Fact]
         public void IsWeightUtilized_ShouldReturnTrueWhenWeightUtilizationIsMet()
         {
             // Arrange
