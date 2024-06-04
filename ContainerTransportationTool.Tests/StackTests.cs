@@ -115,7 +115,7 @@ namespace ContainerTransportationTool.Tests
             int weightAboveFirst = stack.GetWeightAboveFirstContainer();
 
             // Assert
-            Assert.Equal(50, weightAboveFirst); // 20 + 30
+            Assert.Equal(10 + 20, weightAboveFirst);
         }
 
         [Fact]
