@@ -105,7 +105,7 @@ namespace ContainerTransportationTool
             return false;
         }
 
-        private double CalculateWeight(int startColumn, int endColumn)
+        public double CalculateWeight(int startColumn, int endColumn)
         {
             double weight = 0;
             for (int i = 0; i < StackLength; i++)
