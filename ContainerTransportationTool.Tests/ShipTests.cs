@@ -136,6 +136,33 @@ namespace ContainerTransportationTool.Tests
         }
 
         [Fact]
+        public void TryPlaceContainer_ShouldPlaceContainerWithinSpecifiedRange()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+
+            // Act
+            bool placed = ship.TryPlaceContainer(new Container(ContainerType.Normal, 20), 0, 1);
+
+            // Assert
+            Assert.True(placed);
+            Assert.Equal(20, ship.GetStack(0, 0).GetTotalWeight());
+        }
+
+        [Fact]
+        public void TryPlaceContainer_ShouldNotPlaceContainerIfRangeIsInvalid()
+        {
+            // Arrange
+            Ship ship = new Ship(2, 2, 100);
+
+            // Act
+            bool placed = ship.TryPlaceContainer(new Container(ContainerType.Normal, 20), 2, 3);
+
+            // Assert
+            Assert.False(placed);
+        }
+
+        [Fact]
         public void IsWeightUtilized_ShouldReturnTrueWhenWeightUtilizationIsMet()
         {
             // Arrange
