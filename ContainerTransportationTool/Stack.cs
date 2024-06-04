@@ -44,7 +44,7 @@
                 throw new InvalidOperationException("No container to remove!");
             }
 
-            containers.RemoveAt(containers.Count - 1);
+            containers.RemoveAt(0);
         }
 
         public int GetWeightAboveFirstContainer()
