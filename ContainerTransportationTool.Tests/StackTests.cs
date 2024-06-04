@@ -73,5 +73,33 @@ namespace ContainerTransportationTool.Tests
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => stack.GetTopContainer());
         }
+
+        [Fact]
+        public void DeleteTopContainer_ShouldRemoveTopContainer()
+        {
+            // Arrange
+            Stack stack = new Stack();
+            Container container1 = new Container(ContainerType.Normal, 10);
+            Container container2 = new Container(ContainerType.Normal, 20);
+            stack.AddContainer(container1);
+            stack.AddContainer(container2);
+
+            // Act
+            stack.DeleteTopContainer();
+
+            // Assert
+            Assert.DoesNotContain(container2, stack.GetContainers());
+            Assert.Contains(container1, stack.GetContainers());
+        }
+
+        [Fact]
+        public void DeleteTopContainer_ShouldThrowExceptionWhenStackIsEmpty()
+        {
+            // Arrange
+            Stack stack = new Stack();
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => stack.DeleteTopContainer());
+        }
     }
 }
