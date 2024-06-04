@@ -26,7 +26,6 @@
             containers.Insert(0, container);
         }
 
-        // todo: Test the rest - below this
         public Container GetTopContainer()
         {
             if (containers.Count == 0)
@@ -34,8 +33,9 @@
                 throw new InvalidOperationException("No container at this position!");
             }
 
-            return containers[containers.Count - 1];
+            return containers[0];
         }
+
 
         public void DeleteTopContainer()
         {
