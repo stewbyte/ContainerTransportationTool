@@ -89,7 +89,7 @@ namespace ContainerTransportationTool
             }
         }
 
-        private bool TryPlaceContainer(Container container, int startColumn, int endColumn)
+        public bool TryPlaceContainer(Container container, int startColumn, int endColumn)
         {
             for (int i = 0; i < StackLength; i++)
             {
