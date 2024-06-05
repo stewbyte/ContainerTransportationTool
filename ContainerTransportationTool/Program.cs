@@ -8,9 +8,9 @@ namespace ContainerTransportationTool
     {
         static void Main(string[] args)
         {
-            int stackLength = 5;
-            int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 30);
+            int stackLength = 2;
+            int stackWidth = 2;
+            Ship ship = new Ship(stackLength, stackWidth, 40);
 
             List<Container> containers = new List<Container>
             {
@@ -49,16 +49,26 @@ namespace ContainerTransportationTool
 
                     foreach (var container in stack.GetContainers())
                     {
-                        stackTypes.Add(((int)container.ContainerType).ToString());
+                        stackTypes.Add(((int)container.ContainerType + 1).ToString());
                         stackWeights.Add(container.Weight.ToString());
                     }
 
-                    rowStacks.Add(string.Join("-", stackTypes));
-                    rowWeights.Add(string.Join("-", stackWeights));
+                    if (stackTypes.Count > 0)
+                    {
+                        rowStacks.Add(string.Join("-", stackTypes));
+                        rowWeights.Add(string.Join("-", stackWeights));
+                    }
                 }
 
-                stacks.Add(string.Join("/", rowStacks));
-                weights.Add(string.Join("/", rowWeights));
+                if (rowStacks.Count > 0)
+                {
+                    stacks.Add(string.Join("/", rowStacks));
+                }
+
+                if (rowWeights.Count > 0)
+                {
+                    weights.Add(string.Join("/", rowWeights));
+                }
             }
 
             string baseUrl = "https://i872272.luna.fhict.nl/ContainerVisualizer/index.html";
