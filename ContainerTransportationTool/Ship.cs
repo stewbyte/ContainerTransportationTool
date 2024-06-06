@@ -44,11 +44,15 @@ namespace ContainerTransportationTool
                 throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too light for this ship. The minimum allowed load weight should be at least {MaximumWeight * 0.5} tons");
             }
 
-            Console.WriteLine("Itt works");
             AddContainersToLists(containers);
             SortContainersLists();
 
-            IsWeightUtilized();
+            if (CoolableContainers.Count > StackWidth)
+            {
+                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers.Count} coolable containers, there is only space for {StackWidth}");
+            }
+
+            Console.WriteLine("Success");
         }
 
         public void PlaceContainers(List<Container> containers)
