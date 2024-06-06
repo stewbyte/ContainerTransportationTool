@@ -8,26 +8,32 @@ namespace ContainerTransportationTool
     {
         static void Main(string[] args)
         {
-            int stackLength = 2;
-            int stackWidth = 2;
-            Ship ship = new Ship(stackLength, stackWidth, 40);
+            int stackLength = 4;
+            int stackWidth = 4;
+            Ship ship = new Ship(stackLength, stackWidth, 150);
 
             List<Container> containers = new List<Container>
             {
-                new Container(ContainerType.Normal, 10),
-                new Container(ContainerType.Normal, 10),
+                new Container(ContainerType.Coolable, 30),
+                new Container(ContainerType.Coolable, 20),
+                new Container(ContainerType.Coolable, 20),
+                new Container(ContainerType.Coolable, 20),
+                new Container(ContainerType.Normal, 20),
             };
 
             try
             {
-                ship.PlaceContainers(containers);
+                ship.Load(containers);
 
                 string visualizationLink = GenerateVisualizationLink(ship);
                 Console.WriteLine("Visualization Link: " + visualizationLink);
             }
             catch (InvalidOperationException ex)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Error: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+
             }
         }
 
@@ -62,12 +68,12 @@ namespace ContainerTransportationTool
 
                 if (rowStacks.Count > 0)
                 {
-                    stacks.Add(string.Join("/", rowStacks));
+                    stacks.Add(string.Join(",", rowStacks));
                 }
 
                 if (rowWeights.Count > 0)
                 {
-                    weights.Add(string.Join("/", rowWeights));
+                    weights.Add(string.Join(",", rowWeights));
                 }
             }
 
