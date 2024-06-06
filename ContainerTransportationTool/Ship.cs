@@ -29,11 +29,22 @@ namespace ContainerTransportationTool
 
         public void Load(List<Container> containers)
         {
+            if (containers.Count == 0)
+            {
+                throw new InvalidOperationException($"There are no containers to load.");
+            }
+
             if (GetWeightOfContainers(containers) > MaximumWeight)
             {
-                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too heavy for this ship ({MaximumWeight} tons).");
+                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too heavy for this ship. The maximum allowed load weight should be at most {MaximumWeight} tons.");
             }
-            
+
+            if (GetWeightOfContainers(containers) < MaximumWeight * 0.5)
+            {
+                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too light for this ship. The minimum allowed load weight should be at least {MaximumWeight * 0.5} tons");
+            }
+
+            Console.WriteLine("Itt works");
             AddContainersToLists(containers);
             SortContainersLists();
 
