@@ -9,22 +9,32 @@ namespace ContainerTransportationTool
     {
         static void Main(string[] args)
         {
-            int stackLength = 4;
-            int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 300);
+            int stackLength = 2;
+            int stackWidth = 2;
+            int maxWeight = (stackLength * stackWidth) * 150);
+
+            Ship ship = new Ship(stackLength, stackWidth, maxWeight;
 
             List<Container> containers = new List<Container>
             {
                 new Container(ContainerType.Normal, 15),
-                new Container(ContainerType.Normal, 15),
-                new Container(ContainerType.Normal, 20),
-                new Container(ContainerType.Normal, 20),
-                new Container(ContainerType.Coolable, 30),
-                new Container(ContainerType.Coolable, 15),
-                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Normal, 25),
+                new Container(ContainerType.Normal, 25),
+                new Container(ContainerType.Normal, 10),
                 new Container(ContainerType.Normal, 5),
+                new Container(ContainerType.Normal, 25),
+                new Container(ContainerType.Normal, 5),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Normal, 15),
+                new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Normal, 10),
-                new Container(ContainerType.Normal, 10),
+                new Container(ContainerType.Normal, 5),
+                new Container(ContainerType.Normal, 30),
+                new Container(ContainerType.Coolable, 30),
+                new Container(ContainerType.Coolable, 25),
             };
 
             Console.ForegroundColor = ConsoleColor.Blue;
