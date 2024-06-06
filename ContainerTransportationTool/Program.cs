@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using static ContainerTransportationTool.Enums;
 
 namespace ContainerTransportationTool
@@ -10,7 +11,7 @@ namespace ContainerTransportationTool
         {
             int stackLength = 4;
             int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 150);
+            Ship ship = new Ship(stackLength, stackWidth, 200);
 
             List<Container> containers = new List<Container>
             {
@@ -20,6 +21,13 @@ namespace ContainerTransportationTool
                 new Container(ContainerType.Coolable, 20),
                 new Container(ContainerType.Normal, 20),
             };
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"== SHIP INFO ==");
+            Console.WriteLine($"Dimensions: {stackLength}x{stackWidth}");
+            Console.WriteLine($"Allowed cargo weight: {ship.MaximumWeight * 0.5} - {ship.MaximumWeight}");
+            Console.WriteLine($"Amount of containers to load: {containers.Count} \n");
+            Console.ForegroundColor = ConsoleColor.White;
 
             try
             {

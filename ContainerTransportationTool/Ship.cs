@@ -151,8 +151,6 @@ namespace ContainerTransportationTool
                 }
             }
 
-            Console.WriteLine(stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.GetWeightAboveFirstContainer());
-
             if (stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.MaxStackWeight)
             {
                 return false;
