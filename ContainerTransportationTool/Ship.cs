@@ -86,9 +86,9 @@ namespace ContainerTransportationTool
                 for (int layer = 0; !placed; layer++)
                 {
 
-                    for (int widthIndex = 0; widthIndex < StackLength && !placed; widthIndex++)
+                    for (int widthIndex = 0; widthIndex < StackWidth && !placed; widthIndex++)
                     {
-                        for (int lengthIndex = 0; lengthIndex < StackWidth && !placed; lengthIndex++)
+                        for (int lengthIndex = 0; lengthIndex < StackLength && !placed; lengthIndex++)
                         {
                             if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers().Count < layer)
                             {
