@@ -20,6 +20,10 @@ namespace ContainerTransportationTool
             StackWidth = stackWidth;
             MaximumWeight = maximumWeight;
 
+            NormalContainers = new List<Container>();
+            ValuableContainers = new List<Container>();
+            CoolableContainers = new List<Container>();
+
             InitializeStacks();
         }
 
@@ -133,12 +137,30 @@ namespace ContainerTransportationTool
             return weight;
         }
 
-        public List<Container> SortContainers(List<Container> containers)
+        public void AddContainersToLists(List<Container> containers)
         {
-            return containers.OrderByDescending(c => c.ContainerType == ContainerType.Coolable)
-                             .ThenByDescending(c => c.ContainerType == ContainerType.Valuable)
-                             .ThenByDescending(c => c.Weight)
-                             .ToList();
+            foreach (var container in containers)
+            {
+                switch (container.ContainerType)
+                {
+                    case ContainerType.Normal:
+                        NormalContainers.Add(container);
+                        break;
+                    case ContainerType.Valuable:
+                        ValuableContainers.Add(container);
+                        break;
+                    case ContainerType.Coolable:
+                        CoolableContainers.Add(container);
+                        break;
+                }
+            }
+        }
+
+        public void SortContainers(List<Container> containers)
+        {
+            NormalContainers = NormalContainers.OrderByDescending(c => c.Weight).ToList();
+            ValuableContainers = ValuableContainers.OrderByDescending(c => c.Weight).ToList();
+            CoolableContainers = CoolableContainers.OrderByDescending(c => c.Weight).ToList();
         }
 
         public void ValidateStackIndex(int lengthIndex, int widthIndex)
