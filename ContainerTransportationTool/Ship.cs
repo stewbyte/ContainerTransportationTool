@@ -10,9 +10,10 @@ namespace ContainerTransportationTool
         public List<List<Stack>> Stacks { get; private set; }
         
         // Sorted Containers
-        public List<Container> NormalContainers { get; private set; }
-        public List<Container> ValuableContainers { get; private set; }
-        public List<Container> CoolableContainers { get; private set; }
+        public List<Container> Containers { get; private set; }
+        public int NormalContainers { get; private set; }
+        public int CoolableContainers { get; private set; }
+        public int ValuableContainers { get; private set; }
 
         public Ship(int stackLength, int stackWidth, int maximumWeight)
         {
@@ -20,9 +21,10 @@ namespace ContainerTransportationTool
             StackWidth = stackWidth;
             MaximumWeight = maximumWeight;
 
-            NormalContainers = new List<Container>();
-            ValuableContainers = new List<Container>();
-            CoolableContainers = new List<Container>();
+            Containers = new List<Container>();
+            NormalContainers = 0;
+            ValuableContainers = 0;
+            CoolableContainers = 0;
 
             InitializeStacks();
         }
@@ -45,16 +47,14 @@ namespace ContainerTransportationTool
             }
 
             AddContainersToLists(containers);
-            SortContainersLists();
+            List<Container> sortedContainers = SortContainers(containers);
 
-            if (CoolableContainers.Count > StackWidth)
+            if (CoolableContainers > StackWidth)
             {
-                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers.Count} coolable containers, there is only space for {StackWidth}.");
+                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers} coolable containers, there is only space for {StackWidth}.");
             }
 
-            TryPlaceContainers(NormalContainers);
-            TryPlaceContainers(ValuableContainers);
-            TryPlaceContainers(CoolableContainers);
+            TryPlaceContainers(sortedContainers);
         }
 
         public void PlaceContainers(List<Container> containers)
@@ -227,30 +227,31 @@ namespace ContainerTransportationTool
                 switch (container.ContainerType)
                 {
                     case ContainerType.Normal:
-                        NormalContainers.Add(container);
+                        NormalContainers++;
                         break;
                     case ContainerType.Valuable:
-                        ValuableContainers.Add(container);
+                        ValuableContainers++;
                         break;
                     case ContainerType.Coolable:
-                        CoolableContainers.Add(container);
+                        CoolableContainers++;
                         break;
                 }
             }
         }
 
-        public void SortContainersLists()
+        public List<Container> SortContainers(List<Container> containers)
         {
-            NormalContainers = NormalContainers.OrderByDescending(c => c.Weight).ToList();
-            ValuableContainers = ValuableContainers.OrderByDescending(c => c.Weight).ToList();
-            CoolableContainers = CoolableContainers.OrderByDescending(c => c.Weight).ToList();
+            return containers.OrderBy(c => c.ContainerType == ContainerType.Coolable)
+                              .ThenBy(c => c.ContainerType == ContainerType.Valuable)
+                              .ThenBy(c => c.Weight)
+                              .ToList();
         }
 
         public void ValidateStackIndex(int lengthIndex, int widthIndex)
         {
             if (lengthIndex < 0 || lengthIndex >= StackLength || widthIndex < 0 || widthIndex >= StackWidth)
             {
-                throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!"); //todo: fix out of range error, check callstack?
+                throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!");
             }
         }
 
