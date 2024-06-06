@@ -41,7 +41,7 @@ namespace ContainerTransportationTool
 
             if (GetWeightOfContainers(containers) < MaximumWeight * 0.5)
             {
-                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too light for this ship. The minimum allowed load weight should be at least {MaximumWeight * 0.5} tons");
+                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too light for this ship. The minimum allowed load weight should be at least {MaximumWeight * 0.5} tons.");
             }
 
             AddContainersToLists(containers);
@@ -49,14 +49,16 @@ namespace ContainerTransportationTool
 
             if (CoolableContainers.Count > StackWidth)
             {
-                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers.Count} coolable containers, there is only space for {StackWidth}");
+                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers.Count} coolable containers, there is only space for {StackWidth}.");
             }
 
-            Console.WriteLine("Success");
+            TryPlaceContainers(CoolableContainers);
         }
 
         public void PlaceContainers(List<Container> containers)
         {
+
+
             //foreach (Container container in sortedContainers)
             //{
             //    bool placed = PlaceContainerOnLighterSide(container);
@@ -71,6 +73,40 @@ namespace ContainerTransportationTool
             //{
             //    throw new InvalidOperationException("Ship is not balanced and/or less than 50% of the weight is utilized.");
             //}
+        }
+
+        public void TryPlaceContainers(List<Container> containers)
+        {
+            foreach (Container container in containers)
+            {
+                bool placed = false;
+
+                for (int layer = 0; !placed; layer++)
+                {
+                    Console.WriteLine($"=== LAYER {layer} ===");
+
+                    for (int lengthIndex = 0; lengthIndex < StackLength && !placed; lengthIndex++)
+                    {
+                        for (int widthIndex = 0; widthIndex < StackWidth && !placed; widthIndex++)
+                        {
+                            Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}]");
+
+                            if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers().Count < layer)
+                            {
+                                continue;
+                            }
+
+                            if (CanPlaceContainer(container, lengthIndex, widthIndex))
+                            {
+                                AddContainer(container, lengthIndex, widthIndex);
+                                placed = true;
+
+                                Console.WriteLine($"Container placed at {lengthIndex+1}x{widthIndex+1}");
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void InitializeStacks()
@@ -92,6 +128,11 @@ namespace ContainerTransportationTool
         {
             Stack stackTarget = GetStack(lengthIndex, widthIndex);
 
+            if (CheckIfOccupied(lengthIndex, widthIndex))
+            {
+                return false;
+            }
+            
             if (container.ContainerType == ContainerType.Coolable)
             {
                 if (lengthIndex != 0)
@@ -160,6 +201,12 @@ namespace ContainerTransportationTool
                 }
             }
             return weight;
+        }
+
+        public bool CheckIfOccupied(int lengthIndex, int widthIndex)
+        {
+            ValidateStackIndex(lengthIndex, widthIndex);
+            return Stacks[lengthIndex][widthIndex].GetContainers().Count > 0;
         }
 
         public void AddContainersToLists(List<Container> containers)
