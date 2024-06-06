@@ -27,11 +27,21 @@ namespace ContainerTransportationTool
             InitializeStacks();
         }
 
+        public void Load(List<Container> containers)
+        {
+            if (GetWeightOfContainers(containers) > MaximumWeight)
+            {
+                throw new InvalidOperationException($"The weight of the load ({GetWeightOfContainers(containers)} tons) is too heavy for this ship ({MaximumWeight} tons).");
+            }
+            
+            AddContainersToLists(containers);
+            SortContainersLists();
+
+            IsWeightUtilized();
+        }
+
         public void PlaceContainers(List<Container> containers)
         {
-            var sortedContainers = SortContainers(containers);
-
-
             //foreach (Container container in sortedContainers)
             //{
             //    bool placed = PlaceContainerOnLighterSide(container);
@@ -156,7 +166,7 @@ namespace ContainerTransportationTool
             }
         }
 
-        public void SortContainers(List<Container> containers)
+        public void SortContainersLists()
         {
             NormalContainers = NormalContainers.OrderByDescending(c => c.Weight).ToList();
             ValuableContainers = ValuableContainers.OrderByDescending(c => c.Weight).ToList();
@@ -202,6 +212,18 @@ namespace ContainerTransportationTool
         {
             double totalWeight = Stacks.Sum(row => row.Sum(stack => stack.GetTotalWeight()));
             return totalWeight >= MaximumWeight * 0.5;
+        }
+
+        public int GetWeightOfContainers(List<Container> containers)
+        {
+            int count = 0;
+
+            foreach (Container container in containers)
+            {
+                count += container.Weight;
+            }
+
+            return count;
         }
     }
 }
