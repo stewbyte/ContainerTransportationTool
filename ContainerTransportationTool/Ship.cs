@@ -254,7 +254,7 @@ namespace ContainerTransportationTool
         {
             if (lengthIndex < 0 || lengthIndex >= StackLength || widthIndex < 0 || widthIndex >= StackWidth)
             {
-                throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!");
+                throw new ArgumentOutOfRangeException(nameof(lengthIndex), "Index is out of range!"); //todo: fix out of range error, check callstack?
             }
         }
 
