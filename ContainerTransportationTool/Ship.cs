@@ -85,14 +85,11 @@ namespace ContainerTransportationTool
 
                 for (int layer = 0; !placed; layer++)
                 {
-                    Console.WriteLine($"=== LAYER {layer} ===");
 
                     for (int widthIndex = 0; widthIndex < StackLength && !placed; widthIndex++)
                     {
                         for (int lengthIndex = 0; lengthIndex < StackWidth && !placed; lengthIndex++)
                         {
-                            Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}]");
-
                             if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers().Count < layer)
                             {
                                 continue;
@@ -103,11 +100,10 @@ namespace ContainerTransportationTool
                                 AddContainer(container, lengthIndex, widthIndex);
                                 placed = true;
 
-                                Console.WriteLine($"Container placed at {lengthIndex + 1}x{widthIndex + 1}");
+                                Console.WriteLine($"[L{layer}] [{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
                             }
                         }
                     }
-                    Console.WriteLine($"================");
                 }
 
                 if (!placed)

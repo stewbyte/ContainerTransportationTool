@@ -9,8 +9,8 @@ namespace ContainerTransportationTool
     {
         static void Main(string[] args)
         {
-            int stackLength = 3;
-            int stackWidth = 2;
+            int stackLength = 4;
+            int stackWidth = 4;
             Ship ship = new Ship(stackLength, stackWidth, 300);
 
             List<Container> containers = new List<Container>
