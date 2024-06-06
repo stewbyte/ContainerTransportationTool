@@ -8,6 +8,11 @@ namespace ContainerTransportationTool
         public int StackWidth { get; private set; }
         public int MaximumWeight { get; private set; }
         public List<List<Stack>> Stacks { get; private set; }
+        
+        // Sorted Containers
+        public List<Container> NormalContainers { get; private set; }
+        public List<Container> ValuableContainers { get; private set; }
+        public List<Container> CoolableContainers { get; private set; }
 
         public Ship(int stackLength, int stackWidth, int maximumWeight)
         {
@@ -22,20 +27,21 @@ namespace ContainerTransportationTool
         {
             var sortedContainers = SortContainers(containers);
 
-            foreach (Container container in sortedContainers)
-            {
-                bool placed = PlaceContainerOnLighterSide(container);
 
-                if (!placed)
-                {
-                    throw new InvalidOperationException("Unable to place container due to constraints.");
-                }
-            }
+            //foreach (Container container in sortedContainers)
+            //{
+            //    bool placed = PlaceContainerOnLighterSide(container);
 
-            if (!IsShipBalanced() || !IsWeightUtilized())
-            {
-                throw new InvalidOperationException("Ship is not balanced and/or less than 50% of the weight is utilized.");
-            }
+            //    if (!placed)
+            //    {
+            //        throw new InvalidOperationException("Unable to place container due to constraints.");
+            //    }
+            //}
+
+            //if (!IsShipBalanced() || !IsWeightUtilized())
+            //{
+            //    throw new InvalidOperationException("Ship is not balanced and/or less than 50% of the weight is utilized.");
+            //}
         }
 
         private void InitializeStacks()
