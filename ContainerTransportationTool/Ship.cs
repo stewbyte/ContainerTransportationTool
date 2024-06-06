@@ -53,6 +53,8 @@ namespace ContainerTransportationTool
             }
 
             TryPlaceContainers(CoolableContainers);
+            TryPlaceContainers(ValuableContainers);
+            TryPlaceContainers(NormalContainers);
         }
 
         public void PlaceContainers(List<Container> containers)
@@ -77,7 +79,7 @@ namespace ContainerTransportationTool
 
         public void TryPlaceContainers(List<Container> containers)
         {
-            foreach (Container container in containers)
+            foreach (Container container in containers) 
             {
                 bool placed = false;
 
@@ -85,9 +87,9 @@ namespace ContainerTransportationTool
                 {
                     Console.WriteLine($"=== LAYER {layer} ===");
 
-                    for (int lengthIndex = 0; lengthIndex < StackLength && !placed; lengthIndex++)
+                    for (int widthIndex = 0; widthIndex < StackLength && !placed; widthIndex++)
                     {
-                        for (int widthIndex = 0; widthIndex < StackWidth && !placed; widthIndex++)
+                        for (int lengthIndex = 0; lengthIndex < StackWidth && !placed; lengthIndex++)
                         {
                             Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}]");
 
@@ -135,7 +137,7 @@ namespace ContainerTransportationTool
             
             if (container.ContainerType == ContainerType.Coolable)
             {
-                if (lengthIndex != 0)
+                if (widthIndex != 0)
                 {
                     return false;
                 }
