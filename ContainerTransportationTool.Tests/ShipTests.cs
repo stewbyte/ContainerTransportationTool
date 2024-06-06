@@ -221,7 +221,7 @@ namespace ContainerTransportationTool.Tests
             Container normalContainer = new Container(ContainerType.Normal, 10);
 
             // Act
-            bool canPlace = ship.CanPlaceContainer(normalContainer, 1, 1);
+            bool canPlace = ship.CanPlaceContainer(normalContainer, 1, 1, 0);
 
             // Assert
             Assert.True(canPlace);
@@ -235,7 +235,7 @@ namespace ContainerTransportationTool.Tests
             Container coolableContainer = new Container(ContainerType.Coolable, 10);
 
             // Act
-            bool canPlace = ship.CanPlaceContainer(coolableContainer, 0, 0);
+            bool canPlace = ship.CanPlaceContainer(coolableContainer, 0, 0, 0);
 
             // Assert
             Assert.True(canPlace);
@@ -249,7 +249,7 @@ namespace ContainerTransportationTool.Tests
             Container coolableContainer = new Container(ContainerType.Coolable, 10);
 
             // Act
-            bool canPlace = ship.CanPlaceContainer(coolableContainer, 1, 0);
+            bool canPlace = ship.CanPlaceContainer(coolableContainer, 1, 0, 0);
 
             // Assert
             Assert.False(canPlace);
@@ -264,7 +264,7 @@ namespace ContainerTransportationTool.Tests
             ship.AddContainer(new Container(ContainerType.Normal, 10), 0, 0);
 
             // Act
-            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0);
+            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0, 0);
 
             // Assert
             Assert.False(canPlace);
@@ -278,7 +278,7 @@ namespace ContainerTransportationTool.Tests
             Container valuableContainer = new Container(ContainerType.Valuable, 10);
 
             // Act
-            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0);
+            bool canPlace = ship.CanPlaceContainer(valuableContainer, 0, 0, 0);
 
             // Assert
             Assert.True(canPlace);

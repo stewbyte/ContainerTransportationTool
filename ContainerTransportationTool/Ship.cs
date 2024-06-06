@@ -52,9 +52,9 @@ namespace ContainerTransportationTool
                 throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers.Count} coolable containers, there is only space for {StackWidth}.");
             }
 
-            TryPlaceContainers(CoolableContainers);
-            TryPlaceContainers(ValuableContainers);
             TryPlaceContainers(NormalContainers);
+            TryPlaceContainers(ValuableContainers);
+            TryPlaceContainers(CoolableContainers);
         }
 
         public void PlaceContainers(List<Container> containers)
@@ -79,7 +79,7 @@ namespace ContainerTransportationTool
 
         public void TryPlaceContainers(List<Container> containers)
         {
-            foreach (Container container in containers) 
+            foreach (Container container in containers)
             {
                 bool placed = false;
 
@@ -98,18 +98,25 @@ namespace ContainerTransportationTool
                                 continue;
                             }
 
-                            if (CanPlaceContainer(container, lengthIndex, widthIndex))
+                            if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
                             {
                                 AddContainer(container, lengthIndex, widthIndex);
                                 placed = true;
 
-                                Console.WriteLine($"Container placed at {lengthIndex+1}x{widthIndex+1}");
+                                Console.WriteLine($"Container placed at {lengthIndex + 1}x{widthIndex + 1}");
                             }
                         }
                     }
+                    Console.WriteLine($"================");
+                }
+
+                if (!placed)
+                {
+                    throw new InvalidOperationException("Unable to place container due to constraints.");
                 }
             }
         }
+
 
         private void InitializeStacks()
         {
@@ -126,15 +133,15 @@ namespace ContainerTransportationTool
             }
         }
 
-        public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex)
+        public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex, int layer)
         {
             Stack stackTarget = GetStack(lengthIndex, widthIndex);
 
-            if (CheckIfOccupied(lengthIndex, widthIndex))
+            if (CheckIfOccupied(lengthIndex, widthIndex, layer))
             {
                 return false;
             }
-            
+
             if (container.ContainerType == ContainerType.Coolable)
             {
                 if (widthIndex != 0)
@@ -159,6 +166,7 @@ namespace ContainerTransportationTool
             return true;
         }
 
+
         public bool PlaceContainerOnLighterSide(Container container)
         {
             double leftWeight = CalculateWeight(0, StackWidth / 2);
@@ -180,7 +188,7 @@ namespace ContainerTransportationTool
             {
                 for (int j = startColumn; j < endColumn; j++)
                 {
-                    if (CanPlaceContainer(container, i, j))
+                    if (CanPlaceContainer(container, i, j, 0))
                     {
                         AddContainer(container, i, j);
                         return true;
@@ -203,11 +211,18 @@ namespace ContainerTransportationTool
             return weight;
         }
 
-        public bool CheckIfOccupied(int lengthIndex, int widthIndex)
+        public bool CheckIfOccupied(int lengthIndex, int widthIndex, int layer)
         {
             ValidateStackIndex(lengthIndex, widthIndex);
-            return Stacks[lengthIndex][widthIndex].GetContainers().Count > 0;
+
+            if (Stacks[lengthIndex][widthIndex].GetContainers().Count <= layer)
+            {
+                return false;
+            }
+
+            return true;
         }
+
 
         public void AddContainersToLists(List<Container> containers)
         {

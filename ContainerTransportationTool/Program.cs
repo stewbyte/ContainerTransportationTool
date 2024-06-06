@@ -9,16 +9,20 @@ namespace ContainerTransportationTool
     {
         static void Main(string[] args)
         {
-            int stackLength = 4;
-            int stackWidth = 4;
-            Ship ship = new Ship(stackLength, stackWidth, 200);
+            int stackLength = 2;
+            int stackWidth = 2;
+            Ship ship = new Ship(stackLength, stackWidth, 300);
 
             List<Container> containers = new List<Container>
             {
                 new Container(ContainerType.Coolable, 30),
-                new Container(ContainerType.Coolable, 20),
-                new Container(ContainerType.Coolable, 20),
-                new Container(ContainerType.Coolable, 20),
+                new Container(ContainerType.Normal, 15),
+                new Container(ContainerType.Normal, 15),
+                new Container(ContainerType.Normal, 20),
+                new Container(ContainerType.Normal, 20),
+                new Container(ContainerType.Normal, 20),
+                new Container(ContainerType.Normal, 20),
+                new Container(ContainerType.Normal, 20),
                 new Container(ContainerType.Normal, 20),
             };
 
