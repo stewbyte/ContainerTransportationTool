@@ -55,6 +55,8 @@ namespace ContainerTransportationTool
 
         public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex)
         {
+            Stack stackTarget = GetStack(lengthIndex, widthIndex);
+
             if (container.ContainerType == ContainerType.Coolable)
             {
                 if (lengthIndex != 0)
@@ -71,6 +73,13 @@ namespace ContainerTransportationTool
                 }
             }
 
+            Console.WriteLine(stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.GetWeightAboveFirstContainer());
+
+            if (stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.MaxStackWeight)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -79,7 +88,7 @@ namespace ContainerTransportationTool
             double leftWeight = CalculateWeight(0, StackWidth / 2);
             double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
 
-            if (leftWeight <= rightWeight)
+            if (leftWeight <= rightWeight || leftWeight + rightWeight == 0)
             {
                 return TryPlaceContainer(container, 0, StackWidth / 2);
             }
