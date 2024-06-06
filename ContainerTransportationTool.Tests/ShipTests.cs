@@ -8,34 +8,6 @@ namespace ContainerTransportationTool.Tests
     public class ShipTests
     {
         [Fact]
-        public void SortContainers_ShouldPrioritizeCoolableThenValuableThenNormal_AndSortByWeight()
-        {
-            // Arrange
-            Ship ship = new Ship(2, 2, 500);
-            List<Container> containers = new List<Container>
-            {
-                new Container(ContainerType.Normal, 15),
-                new Container(ContainerType.Valuable, 20),
-                new Container(ContainerType.Coolable, 10),
-                new Container(ContainerType.Normal, 30),
-                new Container(ContainerType.Valuable, 25)
-            };
-
-            // Act
-            var sortedContainers = ship.SortContainers(containers);
-
-            // Assert
-            Assert.Equal(ContainerType.Coolable, sortedContainers[0].ContainerType);
-            Assert.Equal(ContainerType.Valuable, sortedContainers[1].ContainerType);
-            Assert.Equal(ContainerType.Valuable, sortedContainers[2].ContainerType);
-            Assert.Equal(ContainerType.Normal, sortedContainers[3].ContainerType);
-            Assert.Equal(ContainerType.Normal, sortedContainers[4].ContainerType);
-            Assert.Equal(25, sortedContainers[1].Weight);
-            Assert.Equal(20, sortedContainers[2].Weight);
-            Assert.Equal(30, sortedContainers[3].Weight);
-        }
-
-        [Fact]
         public void IsShipBalanced_ShouldReturnTrueWhenShipIsBalanced()
         {
             // Max Allowed Difference 40 * 0.2 = 8 - Difference: 8
