@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using static ContainerTransportationTool.Enums;
+﻿using static ContainerTransportationTool.Enums;
 
 namespace ContainerTransportationTool
 {
@@ -101,6 +98,7 @@ namespace ContainerTransportationTool
             }
 
             string baseUrl = "https://i872272.luna.fhict.nl/ContainerVisualizer/index.html";
+
             string length = "length=" + ship.StackLength;
             string width = "width=" + ship.StackWidth;
             string stacksParam = "stacks=" + string.Join("/", stacks);
