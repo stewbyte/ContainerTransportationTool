@@ -59,8 +59,6 @@ namespace ContainerTransportationTool
 
         public void PlaceContainers(List<Container> containers)
         {
-
-
             //foreach (Container container in sortedContainers)
             //{
             //    bool placed = PlaceContainerOnLighterSide(container);
