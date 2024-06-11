@@ -83,23 +83,27 @@ namespace ContainerTransportationTool
 
                 for (int layer = 0; !placed; layer++)
                 {
+                    double leftWeight = CalculateWeight(0, StackWidth / 2);
+                    double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
 
-                    for (int widthIndex = 0; widthIndex < StackWidth && !placed; widthIndex++)
+                    if (leftWeight <= rightWeight || leftWeight + rightWeight == 0)
                     {
-                        for (int lengthIndex = 0; lengthIndex < StackLength && !placed; lengthIndex++)
+                        placed = TryPlaceContainerOnSide(container, layer, 0, StackWidth / 2);
+                    }
+                    else
+                    {
+                        placed = TryPlaceContainerOnSide(container, layer, StackWidth / 2, StackWidth);
+                    }
+
+                    if (!placed)
+                    {
+                        if (leftWeight <= rightWeight || leftWeight + rightWeight == 0)
                         {
-                            if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers().Count < layer)
-                            {
-                                continue;
-                            }
-
-                            if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
-                            {
-                                AddContainer(container, lengthIndex, widthIndex);
-                                placed = true;
-
-                                Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
-                            }
+                            placed = TryPlaceContainerOnSide(container, layer, StackWidth / 2, StackWidth);
+                        }
+                        else
+                        {
+                            placed = TryPlaceContainerOnSide(container, layer, 0, StackWidth / 2);
                         }
                     }
                 }
@@ -109,6 +113,28 @@ namespace ContainerTransportationTool
                     throw new InvalidOperationException("Unable to place container due to constraints.");
                 }
             }
+        }
+
+        private bool TryPlaceContainerOnSide(Container container, int layer, int startColumn, int endColumn)
+        {
+            for (int widthIndex = startColumn; widthIndex < endColumn; widthIndex++)
+            {
+                for (int lengthIndex = 0; lengthIndex < StackLength; lengthIndex++)
+                {
+                    if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers().Count < layer)
+                    {
+                        continue;
+                    }
+
+                    if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
+                    {
+                        AddContainer(container, lengthIndex, widthIndex);
+                        Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
 
