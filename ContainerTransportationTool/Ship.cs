@@ -98,7 +98,7 @@ namespace ContainerTransportationTool
                                 AddContainer(container, lengthIndex, widthIndex);
                                 placed = true;
 
-                                Console.WriteLine($"[L{layer}] [{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
+                                Console.WriteLine($"[{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
                             }
                         }
                     }
