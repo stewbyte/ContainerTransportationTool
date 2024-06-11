@@ -152,7 +152,6 @@ namespace ContainerTransportationTool
                 Stacks.Add(row);
             }
         }
-
         public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex, int layer)
         {
             Stack stackTarget = GetStack(lengthIndex, widthIndex);
@@ -172,7 +171,20 @@ namespace ContainerTransportationTool
 
             if (container.ContainerType == ContainerType.Valuable)
             {
-                if (Stacks[lengthIndex][widthIndex].GetContainers().Count > 0)
+                bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
+                bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
+
+                if (!isFrontAccessible && !isBackAccessible)
+                {
+                    return false;
+                }
+
+                if (lengthIndex > 0 && Stacks[lengthIndex - 1][widthIndex].GetContainers().Count > layer)
+                {
+                    return false;
+                }
+
+                if (lengthIndex < StackLength - 1 && Stacks[lengthIndex + 1][widthIndex].GetContainers().Count > layer)
                 {
                     return false;
                 }
@@ -185,6 +197,7 @@ namespace ContainerTransportationTool
 
             return true;
         }
+
 
 
         public bool PlaceContainerOnLighterSide(Container container)
@@ -265,10 +278,10 @@ namespace ContainerTransportationTool
 
         public List<Container> SortContainers(List<Container> containers)
         {
-            return containers.OrderBy(c => c.ContainerType == ContainerType.Coolable)
-                              .ThenBy(c => c.ContainerType == ContainerType.Valuable)
-                              .ThenBy(c => c.Weight)
-                              .ToList();
+            return containers.OrderByDescending(c => c.ContainerType == ContainerType.Valuable)
+                             .ThenBy(c => c.ContainerType == ContainerType.Coolable)
+                             .ThenBy(c => c.Weight)
+                             .ToList();
         }
 
         public void ValidateStackIndex(int lengthIndex, int widthIndex)
