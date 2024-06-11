@@ -8,9 +8,9 @@ namespace ContainerTransportationTool
         {
             int stackLength = 2;
             int stackWidth = 2;
-            int maxWeight = (stackLength * stackWidth) * 150);
+            int maxWeight = (stackLength * stackWidth) * 150;
 
-            Ship ship = new Ship(stackLength, stackWidth, maxWeight;
+            Ship ship = new Ship(stackLength, stackWidth, maxWeight);
 
             List<Container> containers = new List<Container>
             {
