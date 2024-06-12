@@ -83,7 +83,7 @@ namespace ContainerTransportationTool
             {
                 bool placed = false;
 
-                for (int layer = 0; !placed && layer < maxLayers; layer++)
+                for (int layer = 0; !placed && layer < maxLayers; layer++) // Loop through each layer
                 {
                     double minWeight = double.MaxValue;
                     int bestLengthIndex = -1;
@@ -104,7 +104,7 @@ namespace ContainerTransportationTool
                             {
                                 double currentWeight = CalculateWeight(0, StackWidth);
 
-                                if (currentWeight < minWeight)
+                                if (currentWeight < minWeight) // Check for lightest option
                                 {
                                     minWeight = currentWeight;
                                     bestLengthIndex = lengthIndex;
@@ -114,7 +114,7 @@ namespace ContainerTransportationTool
                         }
                     }
 
-                    if (bestLengthIndex != -1 && bestWidthIndex != -1)
+                    if (bestLengthIndex != -1 && bestWidthIndex != -1) // Place container in best poistion
                     {
                         AddContainer(container, bestLengthIndex, bestWidthIndex);
                         Console.WriteLine($"Placed container at [{bestLengthIndex + 1}x{bestWidthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
@@ -122,7 +122,7 @@ namespace ContainerTransportationTool
                     }
                 }
 
-                if (!placed)
+                if (!placed) 
                 {
                     throw new InvalidOperationException("Unable to place container due to constraints.");
                 }
