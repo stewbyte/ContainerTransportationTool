@@ -49,10 +49,10 @@ namespace ContainerTransportationTool
             AddContainersToLists(containers);
             List<Container> sortedContainers = SortContainers(containers);
 
-            if (CoolableContainers > StackWidth)
-            {
-                throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers} coolable containers, there is only space for {StackWidth}.");
-            }
+            //if (CoolableContainers > StackWidth)
+            //{
+            //    throw new InvalidOperationException($"There is not enough space to accommodate all {CoolableContainers} coolable containers, there is only space for {StackWidth}.");
+            //}
 
             TryPlaceContainers(sortedContainers);
         }
