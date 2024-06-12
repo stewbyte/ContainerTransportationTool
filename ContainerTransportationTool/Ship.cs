@@ -48,6 +48,10 @@ namespace ContainerTransportationTool
 
             AddContainersToLists(containers);
             List<Container> sortedContainers = SortContainers(containers);
+            foreach (var container in sortedContainers)
+            {
+                Console.WriteLine(container.ContainerType);
+            }
 
             //if (CoolableContainers > StackWidth)
             //{
@@ -166,6 +170,7 @@ namespace ContainerTransportationTool
                 Stacks.Add(row);
             }
         }
+
         public bool CanPlaceContainer(Container container, int lengthIndex, int widthIndex, int layer)
         {
             Stack stackTarget = GetStack(lengthIndex, widthIndex);
@@ -211,10 +216,6 @@ namespace ContainerTransportationTool
 
             return true;
         }
-
-
-
-
 
         public bool PlaceContainerOnLighterSide(Container container)
         {
@@ -295,7 +296,7 @@ namespace ContainerTransportationTool
         public List<Container> SortContainers(List<Container> containers)
         {
             return containers.OrderByDescending(c => c.ContainerType == ContainerType.Valuable)
-                             .ThenBy(c => c.ContainerType == ContainerType.Coolable)
+                             .ThenByDescending(c => c.ContainerType == ContainerType.Coolable)
                              .ThenBy(c => c.Weight)
                              .ToList();
         }
