@@ -77,34 +77,48 @@ namespace ContainerTransportationTool
 
         public void TryPlaceContainers(List<Container> containers)
         {
+            int maxLayers = 100;
+
             foreach (Container container in containers)
             {
                 bool placed = false;
 
-                for (int layer = 0; !placed; layer++)
+                for (int layer = 0; !placed && layer < maxLayers; layer++)
                 {
-                    double leftWeight = CalculateWeight(0, StackWidth / 2);
-                    double rightWeight = CalculateWeight(StackWidth / 2, StackWidth);
+                    double minWeight = double.MaxValue;
+                    int bestLengthIndex = -1;
+                    int bestWidthIndex = -1;
 
-                    if (leftWeight <= rightWeight || leftWeight + rightWeight == 0)
+                    for (int widthIndex = 0; widthIndex < StackWidth; widthIndex++)
                     {
-                        placed = TryPlaceContainerOnSide(container, layer, 0, StackWidth / 2);
-                    }
-                    else
-                    {
-                        placed = TryPlaceContainerOnSide(container, layer, StackWidth / 2, StackWidth);
+                        for (int lengthIndex = 0; lengthIndex < StackLength; lengthIndex++)
+                        {
+                            int currentLayer = Stacks[lengthIndex][widthIndex].GetContainers().Count;
+
+                            if (currentLayer != layer)
+                            {
+                                continue;
+                            }
+
+                            if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
+                            {
+                                double currentWeight = CalculateWeight(0, StackWidth);
+
+                                if (currentWeight < minWeight)
+                                {
+                                    minWeight = currentWeight;
+                                    bestLengthIndex = lengthIndex;
+                                    bestWidthIndex = widthIndex;
+                                }
+                            }
+                        }
                     }
 
-                    if (!placed)
+                    if (bestLengthIndex != -1 && bestWidthIndex != -1)
                     {
-                        if (leftWeight <= rightWeight || leftWeight + rightWeight == 0)
-                        {
-                            placed = TryPlaceContainerOnSide(container, layer, StackWidth / 2, StackWidth);
-                        }
-                        else
-                        {
-                            placed = TryPlaceContainerOnSide(container, layer, 0, StackWidth / 2);
-                        }
+                        AddContainer(container, bestLengthIndex, bestWidthIndex);
+                        Console.WriteLine($"Placed container at [{bestLengthIndex + 1}x{bestWidthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
+                        placed = true;
                     }
                 }
 
@@ -114,6 +128,7 @@ namespace ContainerTransportationTool
                 }
             }
         }
+
 
         private bool TryPlaceContainerOnSide(Container container, int layer, int startColumn, int endColumn)
         {
@@ -137,7 +152,6 @@ namespace ContainerTransportationTool
             return false;
         }
 
-
         private void InitializeStacks()
         {
             Stacks = new List<List<Stack>>();
@@ -158,6 +172,7 @@ namespace ContainerTransportationTool
 
             if (CheckIfOccupied(lengthIndex, widthIndex, layer))
             {
+                Console.WriteLine($"Position [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} is already occupied");
                 return false;
             }
 
@@ -165,6 +180,7 @@ namespace ContainerTransportationTool
             {
                 if (widthIndex != 0)
                 {
+                    Console.WriteLine($"Coolable container can only be placed in the first column");
                     return false;
                 }
             }
@@ -176,27 +192,27 @@ namespace ContainerTransportationTool
 
                 if (!isFrontAccessible && !isBackAccessible)
                 {
-                    return false;
-                }
-
-                if (lengthIndex > 0 && Stacks[lengthIndex - 1][widthIndex].GetContainers().Count > layer)
-                {
-                    return false;
-                }
-
-                if (lengthIndex < StackLength - 1 && Stacks[lengthIndex + 1][widthIndex].GetContainers().Count > layer)
-                {
+                    Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} is not accessible from front or back");
                     return false;
                 }
             }
 
+            if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers()[layer - 1].ContainerType == ContainerType.Valuable)
+            {
+                Console.WriteLine($"Cannot place container on top of a valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
+                return false;
+            }
+
             if (stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.MaxStackWeight)
             {
+                Console.WriteLine($"Weight limit exceeded at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
                 return false;
             }
 
             return true;
         }
+
+
 
 
 
