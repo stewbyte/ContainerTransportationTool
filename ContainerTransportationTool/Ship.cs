@@ -121,7 +121,7 @@ namespace ContainerTransportationTool
                     if (bestLengthIndex != -1 && bestWidthIndex != -1) // Place container in best poistion
                     {
                         AddContainer(container, bestLengthIndex, bestWidthIndex);
-                        Console.WriteLine($"Placed container at [{bestLengthIndex + 1}x{bestWidthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
+                        Console.WriteLine($"Placed {container.ContainerType} container at [{bestLengthIndex + 1}x{bestWidthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
                         placed = true;
                     }
                 }
@@ -202,11 +202,11 @@ namespace ContainerTransportationTool
                 }
             }
 
-            if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers()[layer - 1].ContainerType == ContainerType.Valuable)
-            {
-                Console.WriteLine($"Cannot place container on top of a valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
-                return false;
-            }
+            //if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers()[layer - 1].ContainerType == ContainerType.Valuable)
+            //{
+            //    Console.WriteLine($"Cannot place container on top of a valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
+            //    return false;
+            //}
 
             if (stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.MaxStackWeight)
             {
