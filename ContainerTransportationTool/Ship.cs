@@ -342,6 +342,42 @@ namespace ContainerTransportationTool
             return totalWeight >= MaximumWeight * 0.5;
         }
 
+        public bool AreValuableContainersAccessible()
+        {
+            for (int widthIndex = 0; widthIndex < StackWidth; widthIndex++)
+            {
+                for (int lengthIndex = 0; lengthIndex < StackLength; lengthIndex++)
+                {
+                    Stack stack = Stacks[lengthIndex][widthIndex];
+                    List<Container> containers = stack.GetContainers();
+
+                    for (int layer = 0; layer < containers.Count; layer++)
+                    {
+                        Container container = containers[layer];
+
+                        if (container.ContainerType == ContainerType.Valuable)
+                        {
+                            if (layer < containers.Count - 1)
+                            {
+                                Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} has containers on top.");
+                                return false;
+                            }
+
+                            bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
+                            bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
+
+                            if (!isFrontAccessible && !isBackAccessible)
+                            {
+                                Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} is not accessible from front and back.");
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public int GetWeightOfContainers(List<Container> containers)
         {
             int count = 0;
