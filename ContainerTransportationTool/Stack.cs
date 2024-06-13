@@ -35,7 +35,10 @@
 
             return containers[0];
         }
-
+        public void RemoveContainer(Container container)
+        {
+            containers.Remove(container);
+        }
 
         public void DeleteTopContainer()
         {
