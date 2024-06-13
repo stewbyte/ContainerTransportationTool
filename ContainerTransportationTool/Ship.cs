@@ -87,7 +87,7 @@ namespace ContainerTransportationTool
             {
                 bool placed = false;
 
-                for (int layer = 0; !placed && layer < maxLayers; layer++) // Loop through each layer
+                for (int layer = 0; !placed && layer < maxLayers; layer++)
                 {
                     double minWeight = double.MaxValue;
                     int bestLengthIndex = -1;
@@ -108,7 +108,7 @@ namespace ContainerTransportationTool
                             {
                                 double currentWeight = CalculateWeight(0, StackWidth);
 
-                                if (currentWeight < minWeight) // Check for lightest option
+                                if (currentWeight < minWeight)
                                 {
                                     minWeight = currentWeight;
                                     bestLengthIndex = lengthIndex;
@@ -118,7 +118,7 @@ namespace ContainerTransportationTool
                         }
                     }
 
-                    if (bestLengthIndex != -1 && bestWidthIndex != -1) // Place container in best poistion
+                    if (bestLengthIndex != -1 && bestWidthIndex != -1)
                     {
                         AddContainer(container, bestLengthIndex, bestWidthIndex);
                         Console.WriteLine($"Placed {container.ContainerType} container at [{bestLengthIndex + 1}x{bestWidthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
@@ -126,11 +126,78 @@ namespace ContainerTransportationTool
                     }
                 }
 
-                if (!placed) 
+                if (!placed)
                 {
                     throw new InvalidOperationException("Unable to place container due to constraints.");
                 }
             }
+
+            EnsureValuableContainersAccessible();
+        }
+
+        private void EnsureValuableContainersAccessible()
+        {
+            List<Container> toReposition = new List<Container>();
+
+            for (int widthIndex = 0; widthIndex < StackWidth; widthIndex++)
+            {
+                for (int lengthIndex = 0; lengthIndex < StackLength; lengthIndex++)
+                {
+                    Stack stack = Stacks[lengthIndex][widthIndex];
+                    List<Container> containersList = stack.GetContainers();
+
+                    for (int layer = 0; layer < containersList.Count; layer++)
+                    {
+                        Container container = containersList[layer];
+
+                        if (container.ContainerType == ContainerType.Valuable)
+                        {
+                            bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
+                            bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
+
+                            if (layer < containersList.Count - 1 || (!isFrontAccessible && !isBackAccessible))
+                            {
+                                toReposition.Add(container);
+                                stack.RemoveContainer(container);
+                                Console.WriteLine($"Removed valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} for repositioning.");
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (Container container in toReposition)
+            {
+                bool placed = false;
+                for (int widthIndex = 0; widthIndex < StackWidth && !placed; widthIndex++)
+                {
+                    for (int lengthIndex = 0; lengthIndex < StackLength && !placed; lengthIndex++)
+                    {
+                        if (!HasValuableContainerBelow(lengthIndex, widthIndex))
+                        {
+                            placed = PlaceContainerOnTop(container, lengthIndex, widthIndex);
+                        }
+                    }
+                }
+
+                if (!placed)
+                {
+                    throw new InvalidOperationException("Unable to reposition valuable container due to constraints.");
+                }
+            }
+        }
+
+        private bool HasValuableContainerBelow(int lengthIndex, int widthIndex)
+        {
+            Stack stackTarget = GetStack(lengthIndex, widthIndex);
+            foreach (var container in stackTarget.GetContainers())
+            {
+                if (container.ContainerType == ContainerType.Valuable)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -200,13 +267,13 @@ namespace ContainerTransportationTool
                     Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} is not accessible from front or back");
                     return false;
                 }
-            }
 
-            //if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers()[layer - 1].ContainerType == ContainerType.Valuable)
-            //{
-            //    Console.WriteLine($"Cannot place container on top of a valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
-            //    return false;
-            //}
+                if (layer > 0 && Stacks[lengthIndex][widthIndex].GetContainers()[layer - 1].ContainerType == ContainerType.Valuable)
+                {
+                    Console.WriteLine($"Cannot place container on top of a valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer}");
+                    return false;
+                }
+            }
 
             if (stackTarget.GetWeightAboveFirstContainer() + container.Weight >= stackTarget.MaxStackWeight)
             {
@@ -216,6 +283,7 @@ namespace ContainerTransportationTool
 
             return true;
         }
+
 
         public bool PlaceContainerOnLighterSide(Container container)
         {
@@ -272,8 +340,6 @@ namespace ContainerTransportationTool
 
             return true;
         }
-
-
         public void AddContainersToLists(List<Container> containers)
         {
             foreach (var container in containers)
@@ -342,42 +408,6 @@ namespace ContainerTransportationTool
             return totalWeight >= MaximumWeight * 0.5;
         }
 
-        public bool AreValuableContainersAccessible()
-        {
-            for (int widthIndex = 0; widthIndex < StackWidth; widthIndex++)
-            {
-                for (int lengthIndex = 0; lengthIndex < StackLength; lengthIndex++)
-                {
-                    Stack stack = Stacks[lengthIndex][widthIndex];
-                    List<Container> containers = stack.GetContainers();
-
-                    for (int layer = 0; layer < containers.Count; layer++)
-                    {
-                        Container container = containers[layer];
-
-                        if (container.ContainerType == ContainerType.Valuable)
-                        {
-                            if (layer < containers.Count - 1)
-                            {
-                                Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} has containers on top.");
-                                return false;
-                            }
-
-                            bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
-                            bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
-
-                            if (!isFrontAccessible && !isBackAccessible)
-                            {
-                                Console.WriteLine($"Valuable container at [{lengthIndex + 1}x{widthIndex + 1}] on layer {layer} is not accessible from front and back.");
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
         public bool PlaceContainerOnTop(Container container, int lengthIndex, int widthIndex)
         {
             ValidateStackIndex(lengthIndex, widthIndex);
@@ -387,7 +417,7 @@ namespace ContainerTransportationTool
 
             if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
             {
-                stackTarget.AddContainer(container);
+                stackTarget.GetContainers().Add(container);
                 Console.WriteLine($"Placed {container.ContainerType} container on top at [{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
                 return true;
             }

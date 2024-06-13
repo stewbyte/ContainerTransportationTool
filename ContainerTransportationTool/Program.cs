@@ -36,8 +36,6 @@ namespace ContainerTransportationTool
                 new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Normal, 25),
-                new Container(ContainerType.Normal, 25),
-                new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Valuable, 25),
                 new Container(ContainerType.Valuable, 25),
                 new Container(ContainerType.Valuable, 25),
