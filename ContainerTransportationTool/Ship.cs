@@ -378,6 +378,25 @@ namespace ContainerTransportationTool
             return true;
         }
 
+        public bool PlaceContainerOnTop(Container container, int lengthIndex, int widthIndex)
+        {
+            ValidateStackIndex(lengthIndex, widthIndex);
+
+            Stack stackTarget = GetStack(lengthIndex, widthIndex);
+            int layer = stackTarget.GetContainers().Count;
+
+            if (CanPlaceContainer(container, lengthIndex, widthIndex, layer))
+            {
+                stackTarget.AddContainer(container);
+                Console.WriteLine($"Placed {container.ContainerType} container on top at [{lengthIndex + 1}x{widthIndex + 1}] < {container.ContainerType}: {container.Weight}t");
+                return true;
+            }
+
+            Console.WriteLine($"Cannot place {container.ContainerType} container on top at [{lengthIndex + 1}x{widthIndex + 1}] due to constraints.");
+            return false;
+        }
+
+
         public int GetWeightOfContainers(List<Container> containers)
         {
             int count = 0;
