@@ -36,10 +36,10 @@ namespace ContainerTransportationTool
                 new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Normal, 25),
                 new Container(ContainerType.Normal, 25),
-                new Container(ContainerType.Valuable, 25),
-                new Container(ContainerType.Valuable, 25),
-                new Container(ContainerType.Valuable, 25),
-                new Container(ContainerType.Valuable, 25),
+                new Container(ContainerType.Valuable, 24),
+                new Container(ContainerType.Valuable, 23),
+                new Container(ContainerType.Valuable, 22),
+                new Container(ContainerType.Valuable, 21),
             };
 
             Console.ForegroundColor = ConsoleColor.Blue;

@@ -152,8 +152,8 @@ namespace ContainerTransportationTool
 
                         if (container.ContainerType == ContainerType.Valuable)
                         {
-                            bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
-                            bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
+                            bool isFrontAccessible = widthIndex == 0 || Stacks[lengthIndex][widthIndex - 1].GetContainers().Count <= layer;
+                            bool isBackAccessible = widthIndex == StackWidth - 1 || Stacks[lengthIndex][widthIndex + 1].GetContainers().Count <= layer;
 
                             if (layer < containersList.Count - 1 || (!isFrontAccessible && !isBackAccessible))
                             {
@@ -186,6 +186,7 @@ namespace ContainerTransportationTool
                 }
             }
         }
+
 
         private bool HasValuableContainerBelow(int lengthIndex, int widthIndex)
         {
@@ -259,8 +260,8 @@ namespace ContainerTransportationTool
 
             if (container.ContainerType == ContainerType.Valuable)
             {
-                bool isFrontAccessible = lengthIndex == 0 || Stacks[lengthIndex - 1][widthIndex].GetContainers().Count <= layer;
-                bool isBackAccessible = lengthIndex == StackLength - 1 || Stacks[lengthIndex + 1][widthIndex].GetContainers().Count <= layer;
+                bool isFrontAccessible = widthIndex == 0 || Stacks[lengthIndex][widthIndex - 1].GetContainers().Count <= layer;
+                bool isBackAccessible = widthIndex == StackWidth - 1 || Stacks[lengthIndex][widthIndex + 1].GetContainers().Count <= layer;
 
                 if (!isFrontAccessible && !isBackAccessible)
                 {
@@ -283,6 +284,7 @@ namespace ContainerTransportationTool
 
             return true;
         }
+
 
 
         public bool PlaceContainerOnLighterSide(Container container)
